@@ -1,4 +1,5 @@
 import Image from "next/image"
+import minhaLogo from '@/public/logo-bento-app.png'
 
 interface ImagemAcampaProps{
     src?: string
@@ -7,8 +8,8 @@ interface ImagemAcampaProps{
 }
 export default function ImagemAcampa(props: ImagemAcampaProps){
     return(
-        <div className="absolute right-0 top-0 border-dotted w-45 h-82 bg-gray-950">
-            <Image src={props.src || ''} width={props.width} height={props.height} alt="Imagem Acampa">
+        <div className="hidden sm:block absolute right-0 top-0 border-dotted  bg-gray-950">
+            <Image src={props.src || minhaLogo} width={props.width || 180} height={props.height || 328} alt="Imagem Acampa">
 
             </Image>
         </div>

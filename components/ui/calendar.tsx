@@ -4,7 +4,7 @@ import { DayPicker } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { ptBR } from 'date-fns/locale';
+
 function Calendar({
   className,
   classNames,
@@ -65,7 +65,6 @@ function Calendar({
           <ChevronRight className={cn("size-4", className)} {...props} />
         ),
       }}
-      locale={ptBR}
       {...props}
     />
   )

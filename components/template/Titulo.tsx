@@ -9,7 +9,7 @@ export default function Titulo(props: TituloProps){
         <div>
             <h1 className={`
             font-black
-            text-3xl
+            sm:text-3xl
             text-gray-900
             dark:text-gray-300
 
@@ -17,7 +17,7 @@ export default function Titulo(props: TituloProps){
             </h1>
             <h2 className={`
             font-light
-            font-sm
+            sm:font-sm
             text-gray-600
             dark:text-gray-200
                 `}>{props.subtitulo}

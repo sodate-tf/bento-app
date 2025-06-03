@@ -1,10 +1,8 @@
 "use client"
-
 import * as React from "react"
 import { addDays, format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -18,8 +16,8 @@ export function CalendarioPeriodo({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 0, 10),
-    to: addDays(new Date(2025, 0, 20), 20),
+    from: new Date(2025, 10, 15),
+    to: addDays(new Date(2025, 10, 15), 4),
   })
 
   return (

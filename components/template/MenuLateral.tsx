@@ -1,23 +1,61 @@
 import useAuth from '@/src/data/hook/useAuth'
-import { IconeAcampa, IconeAjustes, IconeDashboard, IconeHome, IconeSair, IconeSino } from '../icons'
+import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeHome, IconeSair, IconeSino } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Button } from '../ui/button'
+
 export default function MenuLateral(){
     const { logout } = useAuth()
     return(
-        <aside className='flex flex-col dark:bg-gray-950 dark:gray-200  bg-gray-200 gray-950'>
-            <div className={`h-20 w-20 flex flex-col items-center justify-center`}>
-                <Logo />
-            </div>
-            <ul className='flex-grow'>
-                <MenuItem url="/" texto='Início'  icone={IconeDashboard}/>
-                <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
-                <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
-                <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
-            </ul>
-            <ul>
-                <MenuItem texto='Sair' icone={IconeSair} className='text-red-600 hover:bg-red-400 hover:text-white' onClick={logout}/>
-            </ul>
-        </aside>
+        <>
+        <div className='sm:hidden'>
+            <Sheet>
+                <SheetTrigger asChild >
+                    <div className='absolute w-2 h-2 flex top-2'>
+                        <Button variant="outline" className='flex w-2 h-2 p-4 rounded-full bg-slate-950 text-white'>
+                            {IconeAbrirFechar}
+                        </Button>
+                    </div>
+                </SheetTrigger>
+                <SheetContent side='left' className='w-20'>
+                    <aside className='flex flex-col dark:bg-gray-950 dark:gray-200  bg-gray-200 gray-950'>
+                        <ul className='flex-grow'>
+                            <MenuItem url="/" texto='Início'  icone={IconeHome}/>
+                            <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
+                            <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
+                            <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
+                        </ul>
+                        <ul>
+                            <MenuItem texto='Sair' icone={IconeSair} className='text-red-600 hover:bg-red-400 hover:text-white' onClick={logout}/>
+                        </ul>
+                    </aside>
+                </SheetContent>
+            </Sheet>
+        </div>
+        <div className='hidden sm:block '>
+            <aside className=' flex flex-col dark:bg-gray-950 dark:gray-200  bg-gray-200 gray-950'>
+                        <div className={`h-20 w-20 flex flex-col items-center justify-center`}>
+                            <Logo />
+                        </div>
+                        <ul className='flex-grow'>
+                            <MenuItem url="/" texto='Início'  icone={IconeHome}/>
+                            <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
+                            <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
+                            <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
+                        </ul>
+                        <ul>
+                            <MenuItem texto='Sair' icone={IconeSair} className='text-red-600 hover:bg-red-400 hover:text-white' onClick={logout}/>
+                        </ul>
+                    </aside>
+        </div>
+        </>
     )
 }
