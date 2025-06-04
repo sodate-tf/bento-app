@@ -1,5 +1,5 @@
 import useAuth from '@/src/data/hook/useAuth'
-import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeHome, IconeSair, IconeSino } from '../icons'
+import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeTrabalho, IconeHome, IconeSair, IconeSino } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
 import {
@@ -48,6 +48,7 @@ export default function MenuLateral(){
                         <ul className='flex-grow'>
                             <MenuItem url="/" texto='Início'  icone={IconeHome}/>
                             <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
+                            <MenuItem url='/equipe' texto='Equipe' icone={IconeEquipeTrabalho} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>

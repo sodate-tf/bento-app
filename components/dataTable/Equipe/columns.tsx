@@ -79,11 +79,10 @@ export const columns: ColumnDef<Equipe>[] = [
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
                     <DropdownMenuItem onClick={copiarLinkInscricao}>
-                        Link de Inscrição Campistas
+                        Linkk do Perfil
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Editar Acampamento</DropdownMenuItem>
-                    <DropdownMenuItem>Visualizar Relatório Geral</DropdownMenuItem>
+                    <DropdownMenuItem>Editar membro</DropdownMenuItem>
                 </DropdownMenuContent>
                 
             </DropdownMenu>
