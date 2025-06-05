@@ -1,42 +1,77 @@
-import AcampamentosClass  from "@/components/context/acampamentos"
-import { Acampamento, columns } from "@/components/dataTable/Acampamentos/columns"
+import EquipeClass from "@/components/context/equipe";
+import { Equipe, columns } from "@/components/dataTable/Equipe/columns"
 import { DataTable } from "@/components/dataTable/Equipe/data-table"
 
 
-const dadosBrutosParaTeste = [
-    // Note que dataInicio e dataFinal podem ser strings ou Date, como definido no construtor da classe
-    { nome: 'I Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '1'},
-    { nome: 'II Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '2'},
-    { nome: 'III Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '3'},
-    { nome: 'IV Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '4'},
-    { nome: 'V Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '5'},
-    { nome: 'VI Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '6'},
-    { nome: 'VII Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '7'},
-    { nome: 'VIII Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '8'},
-    { nome: 'IX Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '9'},
-    { nome: 'X Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '10'},
-    { nome: 'XI Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '11'},
-    { nome: 'XII Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '12'},
-    { nome: 'XIII Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '13'},
-    { nome: 'XIV Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '14'},
-    { nome: 'II Bento 30+', dataInicio: new Date("2025-11-15"), dataFinal: new Date("2025-11-19"), uid: '15' },
-    { nome: 'XV Acampabento', dataInicio: new Date("2026-03-15"), dataFinal: new Date("2026-03-19"), uid: '16'},
-    { nome: 'III Bento 30+', dataInicio: new Date("2026-11-15"), dataFinal: new Date("2026-11-19"), uid: '17' },
+const dadosBrutosParaTeste =[
+  { nome: 'Ana Carolina Pereira', cpf: "123.456.789-01", dataNascimento: new Date("1990-01-15"), celular: '(11) 98765-4321', cep: '19013000', numero: '101', uid: '2' },
+  { nome: 'Bruno Costa Lima', cpf: "234.567.890-12", dataNascimento: new Date("1985-11-22"), celular: '(12) 97654-3210', cep: '19045430', numero: '202', uid: '3' },
+  { nome: 'Carla Dias Souza', cpf: "345.678.901-23", dataNascimento: new Date("1992-03-08"), celular: '(13) 96543-2109', cep: '19020050', numero: '303', uid: '4' },
+  { nome: 'Daniel Almeida Santos', cpf: "456.789.012-34", dataNascimento: new Date("1980-07-30"), celular: '(14) 95432-1098', cep: '19015000', numero: '404', uid: '5' },
+  { nome: 'Eduarda Gomes Rocha', cpf: "567.890.123-45", dataNascimento: new Date("1995-09-12"), celular: '(15) 94321-0987', cep: '19060000', numero: '505', uid: '6' },
+  { nome: 'Fernando Henrique Silva', cpf: "678.901.234-56", dataNascimento: new Date("1983-04-25"), celular: '(16) 93210-9876', cep: '19013000', numero: '606', uid: '7' },
+  { nome: 'Gabriela Ferreira Borges', cpf: "789.012.345-67", dataNascimento: new Date("1998-02-18"), celular: '(17) 92109-8765', cep: '19045430', numero: '707', uid: '8' },
+  { nome: 'Hugo Martins Castro', cpf: "890.123.456-78", dataNascimento: new Date("1978-08-05"), celular: '(18) 91098-7654', cep: '19020050', numero: '808', uid: '9' },
+  { nome: 'Isabela Oliveira Ribeiro', cpf: "901.234.567-89", dataNascimento: new Date("1991-06-01"), celular: '(19) 90987-6543', cep: '19015000', numero: '909', uid: '10' },
+  { nome: 'João Pedro Rodrigues', cpf: "012.345.678-90", dataNascimento: new Date("1987-10-10"), celular: '(21) 98765-4320', cep: '19060000', numero: '111', uid: '11' },
+  { nome: 'Karen Nunes Gomes', cpf: "112.233.445-56", dataNascimento: new Date("1993-12-03"), celular: '(22) 97654-3211', cep: '19013000', numero: '222', uid: '12' },
+  { nome: 'Lucas Pires Barbosa', cpf: "223.344.556-67", dataNascimento: new Date("1982-05-19"), celular: '(23) 96543-2102', cep: '19045430', numero: '333', uid: '13' },
+  { nome: 'Mariana Soares Alves', cpf: "334.455.667-78", dataNascimento: new Date("1996-01-28"), celular: '(24) 95432-1093', cep: '19020050', numero: '444', uid: '14' },
+  { nome: 'Nathan Vieira Cunha', cpf: "445.566.778-89", dataNascimento: new Date("1975-09-07"), celular: '(25) 94321-0984', cep: '19015000', numero: '555', uid: '15' },
+  { nome: 'Olivia Xavier Dantas', cpf: "556.677.889-90", dataNascimento: new Date("1999-03-14"), celular: '(26) 93210-9875', cep: '19060000', numero: '666', uid: '16' },
+  { nome: 'Pedro Henrique Lima', cpf: "667.788.990-01", dataNascimento: new Date("1989-07-21"), celular: '(27) 92109-8766', cep: '19013000', numero: '777', uid: '17' },
+  { nome: 'Rafaela Borges Machado', cpf: "778.899.001-12", dataNascimento: new Date("1994-04-09"), celular: '(28) 91098-7657', cep: '19045430', numero: '888', uid: '18' },
+  { nome: 'Sergio Roberto Costa', cpf: "889.900.112-23", dataNascimento: new Date("1981-11-02"), celular: '(31) 90987-6548', cep: '19020050', numero: '999', uid: '19' },
+  { nome: 'Thais Fernanda Dias', cpf: "990.011.223-34", dataNascimento: new Date("1997-08-29"), celular: '(32) 98765-4329', cep: '19015000', numero: '1010', uid: '20' },
+  { nome: 'Victor Hugo Souza', cpf: "001.122.334-45", dataNascimento: new Date("1979-02-06"), celular: '(33) 97654-3210', cep: '19060000', numero: '1122', uid: '21' },
+  { nome: 'Wanessa Aparecida Silva', cpf: "112.233.445-56", dataNascimento: new Date("1990-05-17"), celular: '(34) 96543-2101', cep: '19013000', numero: '1234', uid: '22' },
+  { nome: 'Xavier Augusto Pereira', cpf: "223.344.556-67", dataNascimento: new Date("1984-10-24"), celular: '(35) 95432-1092', cep: '19045430', numero: '1357', uid: '23' },
+  { nome: 'Yasmin Beatriz Rocha', cpf: "334.455.667-78", dataNascimento: new Date("1995-06-03"), celular: '(37) 94321-0983', cep: '19020050', numero: '1470', uid: '24' },
+  { nome: 'Zeca Carlos Santos', cpf: "445.566.778-89", dataNascimento: new Date("1986-01-09"), celular: '(38) 93210-9874', cep: '19015000', numero: '1593', uid: '25' },
+  { nome: 'Amanda Cristina Gomes', cpf: "556.677.889-90", dataNascimento: new Date("1991-07-16"), celular: '(41) 92109-8765', cep: '19060000', numero: '1682', uid: '26' },
+  { nome: 'Bernardo Elias Ribeiro', cpf: "667.788.990-01", dataNascimento: new Date("1983-03-20"), celular: '(42) 91098-7656', cep: '19013000', numero: '1771', uid: '27' },
+  { nome: 'Celina Fabiana Alves', cpf: "778.899.001-12", dataNascimento: new Date("1998-09-27"), celular: '(43) 90987-6547', cep: '19045430', numero: '1860', uid: '28' },
+  { nome: 'Diego Gustavo Cunha', cpf: "889.900.112-23", dataNascimento: new Date("1977-04-04"), celular: '(44) 98765-4328', cep: '19020050', numero: '1959', uid: '29' },
+  { nome: 'Erica Helena Machado', cpf: "990.011.223-34", dataNascimento: new Date("1993-11-11"), celular: '(45) 97654-3219', cep: '19015000', numero: '2048', uid: '30' },
+  { nome: 'Felipe Igor Dantas', cpf: "001.122.334-45", dataNascimento: new Date("1988-08-13"), celular: '(46) 96543-2100', cep: '19060000', numero: '2137', uid: '31' },
+  { nome: 'Giovanna Julia Borges', cpf: "112.233.445-56", dataNascimento: new Date("1996-02-25"), celular: '(47) 95432-1091', cep: '19013000', numero: '2226', uid: '32' },
+  { nome: 'Henrique Luan Castro', cpf: "223.344.556-67", dataNascimento: new Date("1980-06-08"), celular: '(48) 94321-0982', cep: '19045430', numero: '2315', uid: '33' },
+  { nome: 'Ingrid Maria Nunes', cpf: "334.455.667-78", dataNascimento: new Date("1999-01-07"), celular: '(49) 93210-9873', cep: '19020050', numero: '2404', uid: '34' },
+  { nome: 'Jorge Paulo Rodrigues', cpf: "445.566.778-89", dataNascimento: new Date("1985-05-31"), celular: '(51) 92109-8764', cep: '19015000', numero: '2593', uid: '35' },
+  { nome: 'Kamila Quezia Soares', cpf: "556.677.889-90", dataNascimento: new Date("1992-10-15"), celular: '(53) 91098-7655', cep: '19060000', numero: '2682', uid: '36' },
+  { nome: 'Leandro Renato Pires', cpf: "667.788.990-01", dataNascimento: new Date("1981-07-28"), celular: '(54) 90987-6546', cep: '19013000', numero: '2771', uid: '37' },
+  { nome: 'Monica Silvia Alves', cpf: "778.899.001-12", dataNascimento: new Date("1997-03-05"), celular: '(55) 98765-4327', cep: '19045430', numero: '2860', uid: '38' },
+  { nome: 'Nilson Thiago Vieira', cpf: "889.900.112-23", dataNascimento: new Date("1976-09-19"), celular: '(61) 97654-3218', cep: '19020050', numero: '2959', uid: '39' },
+  { nome: 'Patricia Ursula Xavier', cpf: "990.011.223-34", dataNascimento: new Date("1994-08-01"), celular: '(62) 96543-2109', cep: '19015000', numero: '3048', uid: '40' },
+  { nome: 'Rafael Vinicius Rocha', cpf: "001.122.334-45", dataNascimento: new Date("1989-04-12"), celular: '(63) 95432-1090', cep: '19060000', numero: '3137', uid: '41' },
+  { nome: 'Sofia Zilda Lima', cpf: "112.233.445-56", dataNascimento: new Date("1990-11-20"), celular: '(64) 94321-0981', cep: '19013000', numero: '3226', uid: '42' },
+  { nome: 'Thiago Alberto Pereira', cpf: "223.344.556-67", dataNascimento: new Date("1987-01-26"), celular: '(65) 93210-9872', cep: '19045430', numero: '3315', uid: '43' },
+  { nome: 'Viviane Beatriz Dias', cpf: "334.455.667-78", dataNascimento: new Date("1995-07-02"), celular: '(66) 92109-8763', cep: '19020050', numero: '3404', uid: '44' },
+  { nome: 'Wallace Caio Souza', cpf: "445.566.778-89", dataNascimento: new Date("1982-03-09"), celular: '(67) 91098-7654', cep: '19015000', numero: '3593', uid: '45' },
+  { nome: 'Xenia Diana Gomes', cpf: "556.677.889-90", dataNascimento: new Date("1998-10-18"), celular: '(68) 90987-6545', cep: '19060000', numero: '3682', uid: '46' },
+  { nome: 'Yago Eduardo Ribeiro', cpf: "667.788.990-01", dataNascimento: new Date("1978-05-23"), celular: '(69) 98765-4326', cep: '19013000', numero: '3771', uid: '47' },
+  { nome: 'Zara Fatima Castro', cpf: "778.899.001-12", dataNascimento: new Date("1993-12-29"), celular: '(71) 97654-3217', cep: '19045430', numero: '3860', uid: '48' },
+  { nome: 'Arthur Gabriel Nunes', cpf: "889.900.112-23", dataNascimento: new Date("1981-08-04"), celular: '(73) 96543-2108', cep: '19020050', numero: '3959', uid: '49' },
+  { nome: 'Beatriz Heloisa Dantas', cpf: "990.011.223-34", dataNascimento: new Date("1996-04-21"), celular: '(74) 95432-1099', cep: '19015000', numero: '4048', uid: '50' },
+  { nome: 'Carlos Isaac Machado', cpf: "012.345.678-90", dataNascimento: new Date("1979-11-09"), celular: '(75) 94321-0980', cep: '19060000', numero: '4137', uid: '51' }
 ];
 
-function getAcampamentosInstances(): Acampamento[]{
-    return dadosBrutosParaTeste.map(acampaData  =>{
-        return AcampamentosClass.criarDeDados({
-            uid: acampaData.uid,
-            nome: acampaData.nome,
-            dataInicio: acampaData.dataInicio,
-            dataFinal: acampaData.dataFinal,  
+function getEquipeInstances(): Equipe[]{
+    return dadosBrutosParaTeste.map(equipeData  =>{
+        return EquipeClass.criarDeDados({
+            uid: equipeData.uid,
+            nome: equipeData.nome,
+            cpf: equipeData.cpf,
+            dataNascimento: equipeData.dataNascimento,
+            celular: equipeData.celular,
+            cep: equipeData.cep,
+            numero: equipeData.numero 
         })    
     })
 }
- function getData(): Acampamento[] {
+ function getData(): Equipe[] {
   // Fetch data from your API here.
-  return getAcampamentosInstances()
+  return getEquipeInstances()
 }
 
 export default function DataTableEquipe(){

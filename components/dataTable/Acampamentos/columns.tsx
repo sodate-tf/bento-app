@@ -14,7 +14,7 @@ import {
 import { toast, Toaster, useSonner } from "sonner"
 import { IconeCheck } from "@/components/icons"
 
-export type Equipe = {
+export type Acampamento = {
     uid?: string
     nome: string
     dataInicio: Date
@@ -29,7 +29,7 @@ function copiarLinkInscricao(){
     icon: IconeCheck
    })
 }
-export const columns: ColumnDef<Equipe>[] = [
+export const columns: ColumnDef<Acampamento>[] = [
 {
     accessorKey: "uid",
     header: "Uid",

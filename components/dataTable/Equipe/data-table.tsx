@@ -23,13 +23,9 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import ExibirColunas from "./ExibirColunas"
+import FiltrarPor from "./FiltrarPor"
+
  
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -45,7 +41,7 @@ export function DataTable<TData, TValue>({
   )
   
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-
+  
   const table = useReactTable({
     data,
     columns,
@@ -65,44 +61,8 @@ export function DataTable<TData, TValue>({
   return(
     <div className="flex flex-col"> 
         <div className="flex items-center py-4">
-            <Input
-                placeholder="Filtrar Equipe..."
-                value={(table.getColumn("nome")?.getFilterValue() as string) ?? ""} 
-                onChange={(event) => 
-                    table.getColumn("nome")?.setFilterValue(event.target.value)
-                }
-                className="max-w-sm bg-white"
-                />
-
-                <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto flex items-center justify-end">
-                    Exibir Colunas
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter(
-                    (column) => column.getCanHide()
-                  )
-                  .map((column) => {
-                     return(
-                        <DropdownMenuCheckboxItem 
-                           key={column.id}
-                           className="capitalize"
-                           checked={column.getIsVisible()}
-                           onCheckedChange={(value) => 
-                            column.toggleVisibility(!!value)
-                           }
-                        >
-                            {column.id}        
-                        </DropdownMenuCheckboxItem>
-                     )
-                  })
-                }
-            </DropdownMenuContent>
-        </DropdownMenu>
+               <FiltrarPor table={table} />
+               <ExibirColunas table={table}/>
         </div>
         
         <div className="rounded-md border">

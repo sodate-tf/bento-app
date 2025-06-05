@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function Equipe() { 
-  const [formVisivel, setFormVisivel] = useState<boolean>(true)
+  const [formVisivel, setFormVisivel] = useState<boolean>(false)
   function novoAcampa(){
       setFormVisivel(true)
   }

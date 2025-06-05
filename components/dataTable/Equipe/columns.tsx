@@ -13,26 +13,20 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { toast, Toaster, useSonner } from "sonner"
 import { IconeCheck } from "@/components/icons"
+import AcoesTabela from "./AcoesTabela"
 
 export type Equipe = {
     uid?: string
     nome: string
-    dataInicio: Date
-    dataFinal: Date
+    cpf: string
+    celular: string
+    dataNascimento: Date
 }
 
-function copiarLinkInscricao(){
-   toast("Link copiado com sucesso!", {
-    className: "bg-cyan-900 text-white shadow-lg p-10 flex",
-    unstyled: true,
-    invert: false,
-    icon: IconeCheck
-   })
-}
 export const columns: ColumnDef<Equipe>[] = [
 {
     accessorKey: "uid",
-    header: "Uid",
+    header: "UID",
 
 },
 {
@@ -49,21 +43,30 @@ export const columns: ColumnDef<Equipe>[] = [
     },
 },
 {
-    accessorKey: "dataInicio",
-    header:"Data Início",
-        cell: ({ row }) => {
-        // Formata a data para exibição, pois 'dataInicio' é um objeto Date
-        return row.original.dataInicio.toLocaleDateString('pt-BR');
+    accessorKey: "celular",
+    header: "CELULAR",
+    cell: ({ row }) => {
+        // Formata a data para exibição, pois 'dataFinal' é um objeto Date
+        return row.original.celular;
     },
 },
 {
-    accessorKey: "dataFinal",
-    header: "Data Final",
+    accessorKey: "dataNascimento",
+    header: "DATA NASCIMENTO",
     cell: ({ row }) => {
         // Formata a data para exibição, pois 'dataFinal' é um objeto Date
-        return row.original.dataFinal.toLocaleDateString('pt-BR');
+        return row.original.dataNascimento.toLocaleDateString('pt-BR');;
     },
 },
+{
+    accessorKey: "cpf",
+    header:"CPF",
+        cell: ({ row }) => {
+        // Formata a data para exibição, pois 'dataInicio' é um objeto Date
+        return row.original.cpf;
+    },
+},
+
 {
     id: "Ação",
     cell:({row}) =>{
@@ -76,15 +79,7 @@ export const columns: ColumnDef<Equipe>[] = [
                         <MoreHorizontal className="h-4 w-4"></MoreHorizontal>
                      </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={copiarLinkInscricao}>
-                        Linkk do Perfil
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Editar membro</DropdownMenuItem>
-                </DropdownMenuContent>
-                
+                <AcoesTabela uid={acampa.uid || ""}/>
             </DropdownMenu>
         )
     }
