@@ -1,5 +1,3 @@
-
-import FormCadastroAcampa from "@/components/template/Acampas/FormCadastroAcampamento";
 import DataTableEquipe from "@/components/template/Equipe/DataTableEquipe";
 import FormCadastroEquipe from "@/components/template/Equipe/FormCadastroEquipe";
 import Layout from "@/components/template/Layout";

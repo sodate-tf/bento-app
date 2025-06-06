@@ -6,8 +6,7 @@ export default function DocumentosAcampa(){
     return(
         <>
         <ImagemAcampa />
-        <p className="text-muted-foreground mb-3 mt-8 text-sm">Documentos</p>
-        <div className="flex">
+        <div className="flex mt-10">
             <div className="flex flex-col">
                 <div className="flex flex-col">
                 <Label htmlFor="cronograma" className="block text-sm/6 font-medium text-gray-900">

@@ -4,8 +4,7 @@ import { Label } from "@/components/ui/label";
 export default function LeituraEMusica(){
     return(
         <>
-        <p className="text-muted-foreground mt-10 mb-3 text-sm">Leitura e música.</p>
-        <div className="flex items-center">
+        <div className="flex items-center mt-10">
             <div className="flex flex-col">
                 <div className="flex flex-col">
                 <Label htmlFor="linkInscricao" className="block text-sm/6 font-medium text-gray-900">

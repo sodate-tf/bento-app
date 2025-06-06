@@ -6,7 +6,7 @@ import ParoquiaSacramentos from "./ParoquiaSacramentos";
 import FormCamisetas from "./FormCamisetas";
 import ContatoEmergencia from "./ContatoEmergencia";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import EditarHistorico from "./MenuHistorico/EditarHistorico";
 export  interface FormCadastroEquipeProps{
     clickCancelar: () => void
     uid?: string
@@ -32,7 +32,7 @@ export default function FormCadastroEquipe(props: FormCadastroEquipeProps){
       </div>
       <Toaster />
     </form>
-    
+    <EditarHistorico uid={props.uid}/>
     </>
    )
 }

@@ -1,7 +1,7 @@
 import { IconeCheck, IconeLoad, IconeX } from "@/components/icons";
 import FormCadastroEquipe from "@/components/template/Equipe/FormCadastroEquipe";
 import Layout from "@/components/template/Layout";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { equipeFake } from "@/src/data/tabelasFake";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -10,10 +10,14 @@ export default function Equipe() {
     // redirecionar para equipe/index.tsx
   }
     const router = useRouter();
+    
+    
     const { uid } = router.query;
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [userData, setUserData] = useState<any>(null);
+
+  
   useEffect(() => {
         if (uid) { // Certifica-se de que uid não é undefined antes de tentar buscar dados
         const fetchUserData = async () => {
@@ -25,14 +29,10 @@ export default function Equipe() {
             const data = await new Promise(resolve => {
                 setTimeout(() => {
                 // Simulando a busca de dados
-                const allUsers = [
-                    { uid: '1', nome: 'Fabiano Teodoro Sodate', dataNascimento: '02/06/1988', celular: '(18) 99163-1099' },
-                    { uid: '2', nome: 'Ana Carolina Pereira', dataNascimento: '15/01/1990', celular: '(11) 98765-4321' },
-                    // ... outros usuários
-                ];
+                const allUsers = equipeFake;
                 const foundUser = allUsers.find(user => user.uid === uid);
                 resolve(foundUser);
-                }, 500); // Atraso de 500ms para simular uma requisição de rede
+                }, 1); // Atraso de 500ms para simular uma requisição de rede
             });
 
             if (data) {
@@ -84,22 +84,8 @@ export default function Equipe() {
     }
   return (
     <Layout titulo={"Gerenciar: "+userData?.nome} subTitulo="Gerencie aqui a equipe de trabalho">
-      <div className="flex flex-col w-full bg-gray-200 p-3 ">
+      <div className="flex flex-col w-full bg-gray-200 p-3 relative ">
           <FormCadastroEquipe clickCancelar={clickCancelar} uid={""+uid}/> 
-          <aside>
-              <Sheet>
-                <SheetTrigger>Open</SheetTrigger>
-                <SheetContent>
-                <SheetHeader>
-                    <SheetTitle>Are you absolutely sure?</SheetTitle>
-                    <SheetDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
-                    </SheetDescription>
-                </SheetHeader>
-                </SheetContent>
-              </Sheet>
-            </aside>
       </div>
     </Layout> 
   )

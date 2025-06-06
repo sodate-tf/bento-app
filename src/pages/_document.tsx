@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
 
       </Head>
-      <body className="antialiased">
+      <body className="antialiased scroll-smooth">
         <Main />
         <NextScript />
       </body>

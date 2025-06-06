@@ -39,7 +39,6 @@ export default function InfoGeraisAcampa()
 
     return(
         <>
-        <p className="text-muted-foreground mb-4 text-sm">Informações gerais do acampamento.</p>
         <div className="flex items-center flex-wrap">
             <div className="flex gap-x-6 gap-y-8 ">
                 <div className="flex flex-col">
@@ -60,7 +59,7 @@ export default function InfoGeraisAcampa()
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col  sm:grid-cols-6 sm:ml-6 mt-4 sm:mt-0">
+            <div className="flex flex-col  sm:grid-cols-6 sm:ml-6  sm:mt-0">
                     <Label htmlFor="acampamento" className="flex text-sm/6 font-medium text-gray-900">
                         Link de inscrição dos Campistas
                     </Label>
@@ -72,7 +71,7 @@ export default function InfoGeraisAcampa()
                             className="py-1.5 sm:flex-row bg-gray-100 mr-3 p-1 text-base text-gray-900 placeholder:text-gray-400 focus:outiline-none sm:text-sm/6" >
                             </Input>
                         <div className="flex sm:flex-row text-base text-gray-500 select-none sm:text-sm/6">
-                            <Button type="button" variant={"outline"} size="sm" onClick={handleCopyToClipboard}>
+                            <Button type="button" variant={"outline"} className="cursor-copy" size="sm" onClick={handleCopyToClipboard}>
                                 {IconeCopiar} Copiar link 
                             </Button>
                         </div>      
@@ -81,15 +80,15 @@ export default function InfoGeraisAcampa()
             </div>
             <div className="flex flex-col sm:flex-row">
                 <div className="flex items-center">
-                    <div className="flex flex-col mt-5">
+                    <div className="flex flex-col ">
                         <Label htmlFor="periodo" className="block text-sm/6 font-medium text-gray-900">
                             Período
                         </Label>
                         <CalendarioPeriodo />
                     </div>
                 </div>
-                <div className="flex sm:flex-row flex-col sm:m-10 mt-5 gap-x-6 gap-y-8 ">
-                    <div className="flex flex-col sm:flex-col sm:mt-5">
+                <div className="flex sm:flex-row flex-col sm:m-10  gap-x-6 gap-y-8 ">
+                    <div className="flex flex-col sm:flex-col">
                         <Label htmlFor="localAcampa" className="block text-sm/6 font-medium text-gray-900">
                             Local
                         </Label>
@@ -104,6 +103,44 @@ export default function InfoGeraisAcampa()
                     </div>
                 </div>
             </div>
+            <div className="flex flex-col sm:flex-row">
+                <div className="flex items-center">
+                    <div className="flex flex-col mr-5">
+                        <Label htmlFor="periodo" className="block text-sm/6 font-medium text-gray-900">
+                            Taxa Equipe
+                        </Label>
+                        <Input id="taxaEquipe"
+                                name="taxaEquipe"
+                                type="number"
+                                placeholder="R$"
+                                className="flex  py-1.5  bg-gray-100 mr-3 p-1 text-base text-gray-900 placeholder:text-gray-400 focus:outiline-none sm:text-sm/6" >
+                            </Input>
+                    </div>
+                    <div className="flex flex-col mr-5">
+                        <Label htmlFor="periodo" className="block text-sm/6 font-medium text-gray-900">
+                            Taxa Equipe Externa
+                        </Label>
+                        <Input id="taxaEquipeExterna"
+                                name="taxaEquipeExterna"
+                                type="number"
+                                placeholder="R$"
+                                className="flex  py-1.5  bg-gray-100 mr-3 p-1 text-base text-gray-900 placeholder:text-gray-400 focus:outiline-none sm:text-sm/6" >
+                            </Input>
+                    </div>
+                    <div className="flex flex-col ">
+                        <Label htmlFor="periodo" className="block text-sm/6 font-medium text-gray-900">
+                            Taxa Campistas
+                        </Label>
+                        <Input id="taxaCampistas"
+                                name="taxaCampistas"
+                                type="number"
+                                placeholder="R$"
+                                className="flex  py-1.5  bg-gray-100 mr-3 p-1 text-base text-gray-900 placeholder:text-gray-400 focus:outiline-none sm:text-sm/6" >
+                            </Input>
+                    </div>
+                </div>
+            </div>
+            
         </>
     )
 }
