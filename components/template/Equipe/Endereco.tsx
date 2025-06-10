@@ -1,6 +1,8 @@
+import Cep from "@/components/Cep";
 import { IconeWarning } from "@/components/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { pesquisarEndereco } from "@/lib/utils";
 import { useState } from "react";
 import ReactInputMask from "react-input-mask";
 import { toast } from "sonner";
@@ -15,53 +17,7 @@ export default function Endereco(){
         numero: 0,
         complemento: ""
     });
-const pesquisarEndereco = async () => {
-    const cepSemMascara = cep.replace(/\D/g, "");
-    if (cepSemMascara.length === 8) {
-      //toast.success('pesquisando cep')
-      try {
-        const response = await fetch(`https://viacep.com.br/ws/${cepSemMascara}/json/`);
-        const data = await response.json();
-        if (data.erro) {
-           toast.error("CEP não encontrado. ",{
-              className: "bg-yellow-800 text-white shadow-lg p-10 flex",
-                unstyled: true,
-                invert: false,
-                icon: IconeWarning
-              });
-        } else {
-          //toast.success(`Endereço encontrado: ${data.logradouro}`)
-          // Exemplo: setRua(data.logradouro); setCidade(data.localidade); etc.
-          setEndereco({
-              logradouro: data.logradouro,
-              numero: 0,
-              bairro: data.bairro,
-              localidade: data.localidade,
-              uf: data.uf,
-              complemento: data.complemento
-            });
-        }
-      } catch (error) {
-        toast.error(`CEP não encontrado. ${error}`,{
-              className: "bg-red-900 text-white shadow-lg p-10 flex",
-                unstyled: true,
-                invert: false,
-                icon: IconeWarning
-              });
-      }
-      // Aqui você pode chamar sua API, ex:
-      // const response = await fetch(`https://viacep.com.br/ws/${cepSemMascara}/json/`);
-      // const data = await response.json();
-      // console.log(data);
-    } else {
-       toast.error(`CEP incompleto`,{
-              className: "bg-yellow-900 text-white shadow-lg p-10 flex",
-                unstyled: true,
-                invert: false,
-                icon: IconeWarning
-              });
-    }
-  };
+
 return(
     <>
     <div className="flex gap-x-6 gap-y-8 flex-wrap  mt-5">
@@ -69,14 +25,12 @@ return(
             <Label htmlFor="cep" className="text-sm/6 font-medium text-gray-900">
             CEP
             </Label>
-            <ReactInputMask
-                mask="99999-999"
-                value={cep}
-                onChange={(e) => setCep(e.target.value)}
-                onBlur={pesquisarEndereco}
-                placeholder="_____-___"
-                className="flex bg-gray-50 w-[120px] p-1 text-base text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-            />
+            <Cep setCep={setCep} pesquisarEndereco={async () =>{
+              const dataCep = await pesquisarEndereco(cep)
+              if(dataCep)
+                 setEndereco(dataCep)
+                 
+            }} cep={cep} />
         </div>
         </div>
         <div className="flex gap-x-6 gap-y-8 flex-wrap mt-5">

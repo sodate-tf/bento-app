@@ -4,7 +4,7 @@ import { IconeCalendario, IconePesquisando, IconeWarning } from "@/components/ic
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
-import { cn } from "@/lib/utils";
+
 import { SelectTrigger } from "@radix-ui/react-select";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -12,9 +12,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import ReactInputMask from "react-input-mask";
 import FotoPerfil from "./FotoPerfil";
+import CalendarioData from "@/components/CalendarioData";
+import Celular from "@/components/Celular";
 export default function InfosGerais(){
       const [cpf, setCpf] = useState('');
-      const [date, setDate] = useState<Date>()
+     
        const handleCpfChange = (event: any) => {
        setCpf(event.target.value);
   };
@@ -50,11 +52,7 @@ export default function InfosGerais(){
                   <Label htmlFor="celular" className="text-sm/6 font-medium text-gray-900">
                     Celular
                   </Label>
-                  <ReactInputMask id="celular"
-                      name="celular"
-                      mask="(99) 99999-9999"
-                      placeholder="(__) _____-____"
-                      className="flex bg-gray-50 w-40 p-1 text-base text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent" />
+                  <Celular />
                 </div>
               </div>
               <div className="flex gap-x-6 gap-y-8 flex-wrap mt-5">
@@ -63,29 +61,7 @@ export default function InfosGerais(){
                     Data de Nascimento
                     </Label>
                     <div className="flex flex-col">
-                    <Popover>
-                        <PopoverTrigger asChild>
-                        <Button
-                            variant={"outline"}
-                            className={cn(
-                            "w-[240px] justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                            )}
-                        >
-                            {IconeCalendario}
-                            {date ? format(date, "PPP") : <span>Selecione a data</span>}
-                        </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                            mode="single"
-                            selected={date}
-                            onSelect={setDate}
-                            captionLayout="dropdown-buttons"
-                            initialFocus
-                        />
-                        </PopoverContent>
-                    </Popover>
+                    <CalendarioData />
                 </div>
                 </div>
                 <div className="flex flex-col lg:ml-5">

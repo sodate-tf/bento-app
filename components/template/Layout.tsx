@@ -16,6 +16,7 @@ export default function Layout(props: LayoutPros){
 const dados = useAppData()
     return(
         <ForcarAutenticacao>
+        <div className="flex flex-col">
         <div className={`flex h-full min-h-screen w-screen ${dados.tema}`}>
             <AlterarTema />
              <MenuLateral />
@@ -26,6 +27,12 @@ const dados = useAppData()
                 </Conteudo>
              </div>
              <Toaster />
+        </div>
+        <footer className="flex w-screen items-center justify-center">
+                <div className="p-4 border-t text-sm text-gray-500 text-center">
+                    &copy; {new Date().getFullYear()} Acampabento
+                </div>
+            </footer> 
         </div>
         </ForcarAutenticacao>
     )

@@ -1,5 +1,5 @@
 import useAuth from '@/src/data/hook/useAuth'
-import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeTrabalho, IconeHome, IconeSair, IconeSino } from '../icons'
+import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeAcampa, IconeEquipeTrabalho, IconeHome, IconePreInscricao, IconeSair, IconeSino } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
 import {
@@ -28,8 +28,11 @@ export default function MenuLateral(){
                 <SheetContent side='left' className='w-20'>
                     <aside className='flex flex-col dark:bg-gray-950 dark:gray-200  bg-gray-200 gray-950'>
                         <ul className='flex-grow'>
-                            <MenuItem url="/" texto='Início'  icone={IconeHome}/>
+                           <MenuItem url="/" texto='Início'  icone={IconeHome}/>
                             <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
+                            <MenuItem url='/equipe' texto='Equipe' icone={IconeEquipeTrabalho} />
+                            <MenuItem url='/pre-inscricoes' texto='Inscrições' icone={IconePreInscricao} />
+                            <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>
@@ -49,6 +52,8 @@ export default function MenuLateral(){
                             <MenuItem url="/" texto='Início'  icone={IconeHome}/>
                             <MenuItem url='/acampamentos' texto='Acampas' icone={IconeAcampa} />
                             <MenuItem url='/equipe' texto='Equipe' icone={IconeEquipeTrabalho} />
+                            <MenuItem url='/pre-inscricoes' texto='Inscrições' icone={IconePreInscricao} />
+                            <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>

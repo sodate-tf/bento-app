@@ -4,6 +4,7 @@ import InfoGeraisAcampa from "@/components/template/Acampas/InfoGerais";
 import LeituraEMusica from "@/components/template/Acampas/LeituraMusica";
 import BotoesForms from "@/components/template/BotoesForm";
 import { Toaster } from "sonner";
+import InfoPagamentos from "./InfoPagamento";
 export  interface FormCadastroAcampaProps{
     clickCancelar: () => void
 }
@@ -15,6 +16,7 @@ export default function FormCadastroAcampa(props: FormCadastroAcampaProps){
                 <div className="flex flex-col  border-gray-900/10 pb-12">
                     <AcampamentoAtual />
                      <InfoGeraisAcampa />
+                     <InfoPagamentos />
                      <LeituraEMusica/>
                      <DocumentosAcampa />
                      <BotoesForms clickCancelar={props.clickCancelar}/>

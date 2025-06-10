@@ -11,9 +11,9 @@ function getEquipeInstances(): Equipe[]{
         return EquipeClass.criarDeDados({
             uid: equipeData.uid,
             nome: equipeData.nome,
-            cpf: equipeData.cpf,
-            dataNascimento: equipeData.dataNascimento,
             celular: equipeData.celular,
+            dataNascimento: equipeData.dataNascimento,
+            cpf: equipeData.cpf,
             cep: equipeData.cep,
             numero: equipeData.numero 
         })    
@@ -23,12 +23,20 @@ function getEquipeInstances(): Equipe[]{
   // Fetch data from your API here.
   return getEquipeInstances()
 }
+interface DataTableEquipeProps{
+    retornaLinhasSelecionadas?: (tabela: any[]) => any[]
+}
 
-export default function DataTableEquipe(){
+
+export default function DataTableEquipe(props : DataTableEquipeProps){
     const data = getData()
+
+    function retornaLinhasSelecionadas(tabela: any[]){
+            return tabela
+    }
     return(
         <div className="flex flex-col mx-auto py-10 w-full ">
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} retornaLinhasSelecionadas={props.retornaLinhasSelecionadas} />
         </div>
     )
 }

@@ -12,6 +12,9 @@ export default function Equipe() {
   function clickCancelar(){
     setFormVisivel(false)
   }
+  function tabelaSelecionada(table: any){
+    console.log(table)
+  }
   return (
     <Layout titulo="Gerenciar Equipe de Trabalho" subTitulo="Gerencie aqui a equipe de trabalho">
       <div className="flex flex-col w-full bg-gray-200 p-3 ">
@@ -26,7 +29,7 @@ export default function Equipe() {
         {(formVisivel) ? 
             <FormCadastroEquipe clickCancelar={clickCancelar}/>
         :
-            <DataTableEquipe/>
+            <DataTableEquipe retornaLinhasSelecionadas={() => tabelaSelecionada}/>
         }        
       </div>
     </Layout> 

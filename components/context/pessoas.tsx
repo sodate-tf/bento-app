@@ -4,14 +4,14 @@
 export default class Pessoas {
     readonly uid?: string; // ID único da pessoa, geralmente gerado pelo banco de dados
     private _nome: string;
-    private _cpf: string;
+    private _cpf?: string;
     private _celular: string;
     private _dataNascimento: Date; // Data de nascimento como objeto Date
     private _instagram?: string;
     private _estadoCivil?: string;
 
-    private _cep: string;
-    private _numero: string;
+    private _cep?: string;
+    private _numero?: string;
     private _complemento?: string;
 
     private _paroquia?: string;
@@ -50,11 +50,11 @@ export default class Pessoas {
      */
     constructor(
         nome: string,
-        cpf: string,
         celular: string,
         dataNascimento: Date | string,
-        cep: string,
-        numero: string,
+        cep?: string,
+        numero?: string,
+        cpf?: string,
         uid?: string,
         instagram?: string,
         estadoCivil?: string,
@@ -71,11 +71,8 @@ export default class Pessoas {
     ) {
         // Validações básicas para campos obrigatórios
         if (!nome) throw new Error("O nome é obrigatório.");
-        if (!cpf) throw new Error("O CPF é obrigatório.");
         if (!celular) throw new Error("O celular é obrigatório.");
         if (!dataNascimento) throw new Error("A data de nascimento é obrigatória.");
-        if (!cep) throw new Error("O CEP é obrigatório.");
-        if (!numero) throw new Error("O número do endereço é obrigatório.");
 
         this.uid = uid;
         this._nome = nome;
@@ -107,7 +104,7 @@ export default class Pessoas {
         return this._nome;
     }
 
-    get cpf(): string {
+    get cpf(): string | undefined {
         return this._cpf;
     }
 
@@ -127,11 +124,11 @@ export default class Pessoas {
         return this._estadoCivil;
     }
 
-    get cep(): string {
+    get cep(): string | undefined {
         return this._cep;
     }
 
-    get numero(): string {
+    get numero(): string | undefined{
         return this._numero;
     }
 
@@ -194,13 +191,13 @@ export default class Pessoas {
     static criarDeDados(dados: {
         uid?: string;
         nome: string;
-        cpf: string;
+        cpf?: string;
         celular: string;
         dataNascimento: Date | string;
         instagram?: string;
         estadoCivil?: string;
-        cep: string;
-        numero: string;
+        cep?: string;
+        numero?: string;
         complemento?: string;
         paroquia?: string;
         batismo?: boolean;
@@ -215,9 +212,9 @@ export default class Pessoas {
         // O construtor já contém as validações essenciais
         return new Pessoas(
             dados.nome,
-            dados.cpf,
             dados.celular,
             dados.dataNascimento,
+            dados.cpf,
             dados.cep,
             dados.numero,
             dados.uid,
@@ -245,13 +242,13 @@ export default class Pessoas {
     toObject(): {
         uid?: string;
         nome: string;
-        cpf: string;
+        cpf?: string;
         celular: string;
         dataNascimento: string; // Retorna como string ISO
         instagram?: string;
         estadoCivil?: string;
-        cep: string;
-        numero: string;
+        cep?: string;
+        numero?: string;
         complemento?: string;
         paroquia?: string;
         batismo?: boolean;

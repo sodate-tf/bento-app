@@ -30,18 +30,25 @@ import FiltrarPor from "./FiltrarPor"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  retornaLinhasSelecionadas?: (selectedData: TData[]) => void
 }
 export function DataTable<TData, TValue>({
   columns,
   data,
+  retornaLinhasSelecionadas,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  
+
+   const handleReportSelectedRows = () => {
+    if (retornaLinhasSelecionadas) {
+      const selectedData = table.getFilteredSelectedRowModel().rows.map(row => row.original);
+      retornaLinhasSelecionadas(selectedData); 
+    } 
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -58,6 +65,7 @@ export function DataTable<TData, TValue>({
        columnVisibility
     }
   })
+  handleReportSelectedRows()
   return(
     <div className="flex flex-col"> 
         <div className="flex items-center py-4">
@@ -94,9 +102,11 @@ export function DataTable<TData, TValue>({
                             data-state={row.getIsSelected() && "selelected"}
                             >
                                 {row.getVisibleCells().map((cell) =>(
+                                 
                                     <TableCell key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
+                                    </TableCell>   
+                                    
                                 ))}
                             </TableRow>
                         ))
@@ -111,6 +121,11 @@ export function DataTable<TData, TValue>({
             </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="text-muted-foreground flex-1 text-sm">
+                
+                {table.getFilteredSelectedRowModel().rows.length} de{" "}
+                {table.getFilteredRowModel().rows.length} linhas(s) selecionadas.
+              </div>
             <Button
               variant="outline"
               size="sm"

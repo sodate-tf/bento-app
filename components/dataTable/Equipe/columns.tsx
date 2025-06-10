@@ -14,16 +14,43 @@ import {
 import { toast, Toaster, useSonner } from "sonner"
 import { IconeCheck } from "@/components/icons"
 import AcoesTabela from "./AcoesTabela"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export type Equipe = {
     uid?: string
     nome: string
-    cpf: string
+    cpf?: string
     celular: string
     dataNascimento: Date
+    mostraCheck: boolean
 }
 
 export const columns: ColumnDef<Equipe>[] = [
+{
+    id: "select",
+    header: ({ table }) => (
+        
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+        
+            <Checkbox
+            className="bg-white border border-gray-950"
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Select row"
+            />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },   
 {
     accessorKey: "uid",
     header: "UID",
