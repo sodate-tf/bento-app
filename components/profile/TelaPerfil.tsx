@@ -93,7 +93,7 @@ const calculateCompletionPercentage = (profile: UserProfile): number => {
 
  
 export default function TelaPerfil(){
-    const [userProfile, setUserProfile] = useState<UserProfile>(initialUserProfile);
+  const [userProfile, setUserProfile] = useState<UserProfile>(initialUserProfile);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [profileImagePreviewUrl, setProfileImagePreviewUrl] = useState<string | null>(initialUserProfile.profileImageUrl);
 
@@ -138,11 +138,11 @@ export default function TelaPerfil(){
   };
   
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-300 to-slate-300 p-4 md:p-8">
+        <div className="min-h-screen  bg-gradient-to-br from-gray-300 to-slate-300 p-2 md:p-4">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
         
         {/* Cabeçalho do Perfil */}
-        <div className="relative bg-gray-800 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between">
+        <div className="relative bg-gray-800 text-white p-1 md:p-2 flex flex-col md:flex-row items-center justify-between">
           
 
           {/* Área da Foto e Porcentagem */}
@@ -183,7 +183,7 @@ export default function TelaPerfil(){
         </div>
 
         {/* Formulário de Seções */}
-        <div className="p-6 md:p-8 space-y-8">
+        <div className="p-1 md:p-2 space-y-8">
           <InformacoesBasicas profile={userProfile} onProfileChange={handleProfileChange} />
           <InformacoesPessoais profile={userProfile} onProfileChange={handleProfileChange} />
           <Endereco profile={userProfile} onProfileChange={handleProfileChange} />

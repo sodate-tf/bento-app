@@ -10,9 +10,13 @@ export default function EquipeAcampa() {
   
   const [bentoAtivo, setBentoAtivo] = useState()
   const BENTOS_ATIVOS = ['II Bento 30+']
-
+  let ArraySelecionados: any[] = []
   function equipeSelecionada(tabela: any[]): void{
-      console.log(tabela)
+      ArraySelecionados = tabela
+  }
+  function gravarSelecinados(){
+    // Array com todas as pessoas selecionadas para trabalhar no próximo acampa
+    console.log(ArraySelecionados)
   }
 
   return (
@@ -35,7 +39,7 @@ export default function EquipeAcampa() {
         </div>
         <DataTableEquipe retornaLinhasSelecionadas={equipeSelecionada}/>
         <div className="flex">
-            <Button className="bg-cyan-950 hover:bg-cyan-900 cursor-pointer" >
+            <Button className="bg-cyan-950 hover:bg-cyan-900 cursor-pointer" onClick={gravarSelecinados} >
               <UserPlus />
               Adicionar ao Acampa</Button>      
         </div>
