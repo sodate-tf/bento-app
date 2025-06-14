@@ -10,6 +10,7 @@ import HistoricoEquipes from "./HistoricoEquipes"
 
 interface EditarHistoricoProps{
     uid: string
+    posicaoIcone?: string
 }
 export default function EditarHistorico(props: EditarHistoricoProps){
     const [exibirConvite, setExibirConvite] = useState(false)
@@ -17,12 +18,12 @@ export default function EditarHistorico(props: EditarHistoricoProps){
     function mostrarConvite(exibir: boolean){
         setExibirConvite(exibir)
     }
-    
+    const posicaoIcone = props.posicaoIcone ? props.posicaoIcone : "absolute top-5 right-5"
     return(
         <aside>
               <Sheet>
                 <SheetTrigger>
-                    <div className="absolute top-5 right-5">
+                    <div className={posicaoIcone}>
                         <Tooltip>
                             <TooltipTrigger>
                                  <NotebookPen className="text-cyan-950 cursor-pointer" />

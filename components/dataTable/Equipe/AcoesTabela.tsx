@@ -1,19 +1,15 @@
 import { IconeCheck } from "@/components/icons";
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { exibirMsgAlerta } from "@/lib/utils";
 import Link from "next/link";
-import { toast } from "sonner";
+
 
 interface AcoesTabelaProps{
     uid: string
 }
 export default function AcoesTabela(props: AcoesTabelaProps){
     function copiarLinkInscricao(){
-       toast("Link copiado com sucesso!", {
-        className: "bg-cyan-900 text-white shadow-lg p-10 flex",
-        unstyled: true,
-        invert: false,
-        icon: IconeCheck
-       })
+       exibirMsgAlerta("Link copiado com sucesso!", "Sucesso", IconeCheck)
     }
     return(
         <DropdownMenuContent align="end">
@@ -29,4 +25,8 @@ export default function AcoesTabela(props: AcoesTabelaProps){
             </DropdownMenuItem>
         </DropdownMenuContent>
     )
+}
+
+function exibirAlerta() {
+    throw new Error("Function not implemented.");
 }

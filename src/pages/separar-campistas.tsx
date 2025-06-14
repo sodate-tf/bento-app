@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
-import { equipeFake } from "../data/tabelasFake"; // Supondo que este caminho está correto
+import { equipeFake, preInscricaoFake } from "../data/tabelasFake"; // Supondo que este caminho está correto
 
 // Importar os novos componentes refatorados
 
@@ -22,19 +22,13 @@ interface EquipeCampista {
 // Constantes para os acampamentos e tipos de equipes de trabalho
 const BENTOS_ATIVOS = ['II Bento 30+'];
 const EQUIPES_DE_TRABALHO = [
-    'LÍDERES',
-    'SECRETARIA',
-    'APOIO',
-    'MANUTENÇÃO',
-    'COZINHA',
-    'BEM ESTAR',
-    'EXTERNA',
-    'COORDENAÇÃO',
-    'DIREÇÃO',
-    'MÚSICA',
-    'INTERCESSÃO',
-    'PRODUÇÃO',
-    'MÍDIA'
+    'FÉ',
+    'CARIDADE',
+    'JUSTIÇA',
+    'FORTALEZA',
+    'PRUDÊNCIA',
+    'ESPERANÇA',
+    'TEMPERANÇA'
 ];
 
 /**
@@ -42,24 +36,19 @@ const EQUIPES_DE_TRABALHO = [
  * Gerencia o estado da lista geral de pessoas e das equipes específicas.
  * Orquestra a exibição da tabela de seleção e do resumo das equipes.
  */
-export default function SepararEquipe() {
+export default function SepararCampistas() {
     // Estado para a lista geral de pessoas na equipe de trabalho, que será modificada
-    const [equipeGeral, setEquipeGeral] = useState<EquipeCampista[]>(equipeFake);
+    const [equipeGeral, setEquipeGeral] = useState<EquipeCampista[]>(preInscricaoFake);
 
     // Estados para cada equipe, tipados como string[] para UIDs
-    const [lideres, setLideres] = useState<string[]>([]);
-    const [secretaria, setSecretaria] = useState<string[]>([]);
-    const [apoio, setApoio] = useState<string[]>([]);
-    const [manutencao, setManutencao] = useState<string[]>([]);
-    const [cozinha, setCozinha] = useState<string[]>([]);
-    const [bemEstar, setBemEstar] = useState<string[]>([]);
-    const [externa, setExterna] = useState<string[]>([]);
-    const [coordenacao, setCoordencao] = useState<string[]>([]);
-    const [direcao, setDirecao] = useState<string[]>([]);
-    const [musica, setMusica] = useState<string[]>([]);
-    const [intercessao, setIntercessao] = useState<string[]>([]);
-    const [producao, setProducao] = useState<string[]>([]);
-    const [midia, setMidia] = useState<string[]>([]);
+    const [fe, setfe] = useState<string[]>([]);
+    const [caridade, setCaridade] = useState<string[]>([]);
+    const [temperanca, setTemperanca] = useState<string[]>([]);
+    const [fortaleza, setfortaleza] = useState<string[]>([]);
+    const [prudencia, setPrudencia] = useState<string[]>([]);
+    const [justica, setJustica] = useState<string[]>([]);
+    const [esperanca, setEsperanca] = useState<string[]>([]);
+    
 
     const [bentoAtivo, setBentoAtivo] = useState('II Bento 30+');
     // Estado para armazenar a equipe selecionada para cada pessoa no dropdown principal
@@ -67,36 +56,24 @@ export default function SepararEquipe() {
 
     // Mapeamento de nomes de equipe para seus setters de estado para fácil acesso
     const setEquipeMap: Record<string, React.Dispatch<React.SetStateAction<string[]>>> = {
-        'LÍDERES': setLideres,
-        'SECRETARIA': setSecretaria,
-        'APOIO': setApoio,
-        'MANUTENÇÃO': setManutencao,
-        'COZINHA': setCozinha,
-        'BEM ESTAR': setBemEstar,
-        'EXTERNA': setExterna,
-        'COORDENAÇÃO': setCoordencao,
-        'DIREÇÃO': setDirecao,
-        'MÚSICA': setMusica,
-        'INTERCESSÃO': setIntercessao,
-        'PRODUÇÃO': setProducao,
-        'MÍDIA': setMidia,
+        'FÉ': setfe,
+        'CARIDADE': setCaridade,
+        'FORTALEZA': setfortaleza,
+        'JUSTIÇA': setJustica,
+        'PRUDÊNCIA': setPrudencia,
+        'ESPERANÇA': setEsperanca,
+        'TEMPERÂNÇA': setTemperanca,
     };
 
     // Mapeamento de nomes de equipe para os arrays de estado atuais para renderização no resumo
     const equipesAtivas: Record<string, string[]> = {
-        'LÍDERES': lideres,
-        'SECRETARIA': secretaria,
-        'APOIO': apoio,
-        'MANUTENÇÃO': manutencao,
-        'COZINHA': cozinha,
-        'BEM ESTAR': bemEstar,
-        'EXTERNA': externa,
-        'COORDENAÇÃO': coordenacao,
-        'DIREÇÃO': direcao,
-        'MÚSICA': musica,
-        'INTERCESSÃO': intercessao,
-        'PRODUÇÃO': producao,
-        'MÍDIA': midia,
+        'FÉ': fe,
+        'CARIDADE': caridade,
+        'FORTALEZA': fortaleza,
+        'JUSTIÇA': justica,
+        'PRUDÊNCIA': prudencia,
+        'ESPERANÇA': esperanca,
+        'TEMPERANÇA': temperanca
     };
 
     /**
@@ -129,7 +106,7 @@ export default function SepararEquipe() {
             return;
         }
 
-        const pessoa = equipeFake.find(item => item.uid === uid); // Busca na lista COMPLETA de pessoas
+        const pessoa = preInscricaoFake.find(item => item.uid === uid); // Busca na lista COMPLETA de pessoas
         if (!pessoa) {
             exibirMsgAlerta(`Pessoa com UID ${uid} não encontrada.`, 'red-950', IconeX);
             return;
@@ -218,7 +195,7 @@ export default function SepararEquipe() {
             }
         });
         console.log(">>> [USEEFFECT] Estado 'selectedEquipes' atualizado:", selectedEquipes);
-    }, [equipeGeral, selectedEquipes, lideres, secretaria, apoio, manutencao, cozinha, bemEstar, externa, coordenacao, direcao, musica, intercessao, producao, midia]);
+    }, [equipeGeral, selectedEquipes, fe, caridade, esperanca, temperanca, justica, fortaleza, prudencia]);
 
     return (
         <Layout titulo="Separar Equipe" subTitulo="Escolha a equipe de cada membro da equipe">

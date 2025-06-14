@@ -1,5 +1,5 @@
 import useAuth from '@/src/data/hook/useAuth'
-import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeAcampa, IconeEquipeTrabalho, IconeHome, IconePreInscricao, IconeSair, IconeSeparacaoEquipe, IconeSino } from '../icons'
+import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeAcampa, IconeEquipeTrabalho, IconeHome, IconePreInscricao, IconeSair, IconeSeparacaoEquipe, IconeSepararCampistas, IconeSino } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
 import {
@@ -34,6 +34,7 @@ export default function MenuLateral(){
                             <MenuItem url='/pre-inscricoes' texto='Inscrições' icone={IconePreInscricao} />
                             <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url='/separar-equipe' texto='Separar Equipe' icone={IconeSeparacaoEquipe} />
+                            <MenuItem url='/separar-campistas' texto='Separar campistas' icone={IconeSepararCampistas} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>
@@ -56,6 +57,7 @@ export default function MenuLateral(){
                             <MenuItem url='/pre-inscricoes' texto='Inscrições' icone={IconePreInscricao} />
                             <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url='/separar-equipe' texto='Separar Equipe' icone={IconeSeparacaoEquipe} />
+                            <MenuItem url='/separar-campistas' texto='Separar campistas' icone={IconeSepararCampistas} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>

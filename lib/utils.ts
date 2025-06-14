@@ -1,4 +1,4 @@
-import { IconeWarning } from "@/components/icons";
+import { IconeCheck, IconeWarning } from "@/components/icons";
 import { clsx, type ClassValue } from "clsx"
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge"
@@ -64,3 +64,16 @@ export async function pesquisarEndereco(cep: string) {
               });
     }
   };
+
+  
+ export function exibirMsgAlerta(msg: string, cor: string , icone: JSX.Element){
+    let classe : string
+    classe = `bg-${cor} text-white shadow-lg p-10 flex`
+       
+    toast(msg, {
+        className: classe,
+        unstyled: true,
+        invert: false,
+        icon: icone
+       })
+  }
