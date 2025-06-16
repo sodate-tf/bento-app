@@ -59,18 +59,18 @@ export default function Autenticacao(){
                  
                     <AuthInput obrigatorio={true} tipo="email" label="Email" valor={email} valorMudou={setEmail} />
                     <AuthInput obrigatorio={true} tipo="password" label="Senha" valor={senha} valorMudou={setSenha} />
-                    <button onClick={() => submeter()} className={`w-full bg-indigo-500 hover:bg-indigo-400 text-shadow-white rounded-lg px-4 py-3 mt-6`}>
+                    <button onClick={() => submeter()} className={`w-full cursor-pointer bg-cyan-950 hover:bg-cyan-800 text-white rounded-lg px-4 py-3 mt-6`}>
                         {modo === 'login' ? 'Entrar' : 'Cadastrar'}
                     </button>
 
                     <hr className="my-6 border-gray-300 w-full" />
 
-                    <button onClick={loginGoogle} className={`w-full bg-red-500 hover:bg-red-400 text-shadow-white rounded-lg px-4 py-3 relative`}>
+                    <button onClick={loginGoogle} className={`w-full cursor-pointer bg-red-950 hover:bg-red-800 text-white rounded-lg px-4 py-3 relative`}>
                     {Google} Entrar com Google
                     </button>
                     {modo ==='login' ? (
                         <p className="mt-8">  Novo por aqui? 
-                            <a onClick={() => alterarModo()} className={`text-blue-500 hover:text-blue-700 font-semibold cursor-pointer`}> Crie uma conta</a>
+                            <a onClick={() => alterarModo()} className={`text-blue-500  hover:text-blue-700 font-semibold cursor-pointer`}> Crie uma conta</a>
                         </p>
                     ) : (
                         <p className="mt-8"> Já tem cadastro? 
