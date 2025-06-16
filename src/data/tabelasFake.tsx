@@ -1,3 +1,24 @@
+export const lideresFake = [
+    { nome: 'Ana Carolina Pereira', cpf: "123.456.789-01", dataNascimento: new Date("1990-01-15"), celular: '(11) 98765-4321', cep: '19013000', numero: '101', uid: '2' },
+  { nome: 'Bruno Costa Lima', cpf: "234.567.890-12", dataNascimento: new Date("1985-11-22"), celular: '(12) 97654-3210', cep: '19045430', numero: '202', uid: '3' },
+  { nome: 'Carla Dias Souza', cpf: "345.678.901-23", dataNascimento: new Date("1992-03-08"), celular: '(13) 96543-2109', cep: '19020050', numero: '303', uid: '4' },
+  { nome: 'Daniel Almeida Santos', cpf: "456.789.012-34", dataNascimento: new Date("1980-07-30"), celular: '(14) 95432-1098', cep: '19015000', numero: '404', uid: '5' },
+  { nome: 'Eduarda Gomes Rocha', cpf: "567.890.123-45", dataNascimento: new Date("1995-09-12"), celular: '(15) 94321-0987', cep: '19060000', numero: '505', uid: '6' },
+  { nome: 'Fernando Henrique Silva', cpf: "678.901.234-56", dataNascimento: new Date("1983-04-25"), celular: '(16) 93210-9876', cep: '19013000', numero: '606', uid: '7' },
+  { nome: 'Gabriela Ferreira Borges', cpf: "789.012.345-67", dataNascimento: new Date("1998-02-18"), celular: '(17) 92109-8765', cep: '19045430', numero: '707', uid: '8' },
+  { nome: 'Hugo Martins Castro', cpf: "890.123.456-78", dataNascimento: new Date("1978-08-05"), celular: '(18) 91098-7654', cep: '19020050', numero: '808', uid: '9' },
+  { nome: 'Isabela Oliveira Ribeiro', cpf: "901.234.567-89", dataNascimento: new Date("1991-06-01"), celular: '(19) 90987-6543', cep: '19015000', numero: '909', uid: '10' },
+  { nome: 'João Pedro Rodrigues', cpf: "012.345.678-90", dataNascimento: new Date("1987-10-10"), celular: '(21) 98765-4320', cep: '19060000', numero: '111', uid: '11' },
+  { nome: 'Karen Nunes Gomes', cpf: "112.233.445-56", dataNascimento: new Date("1993-12-03"), celular: '(22) 97654-3211', cep: '19013000', numero: '222', uid: '12' },
+  { nome: 'Lucas Pires Barbosa', cpf: "223.344.556-67", dataNascimento: new Date("1982-05-19"), celular: '(23) 96543-2102', cep: '19045430', numero: '333', uid: '13' },
+  { nome: 'Mariana Soares Alves', cpf: "334.455.667-78", dataNascimento: new Date("1996-01-28"), celular: '(24) 95432-1093', cep: '19020050', numero: '444', uid: '14' },
+  { nome: 'Nathan Vieira Cunha', cpf: "445.566.778-89", dataNascimento: new Date("1975-09-07"), celular: '(25) 94321-0984', cep: '19015000', numero: '555', uid: '15' },
+  { nome: 'Olivia Xavier Dantas', cpf: "556.677.889-90", dataNascimento: new Date("1999-03-14"), celular: '(26) 93210-9875', cep: '19060000', numero: '666', uid: '16' },
+  { nome: 'Pedro Henrique Lima', cpf: "667.788.990-01", dataNascimento: new Date("1989-07-21"), celular: '(27) 92109-8766', cep: '19013000', numero: '777', uid: '17' },
+  { nome: 'Rafaela Borges Machado', cpf: "778.899.001-12", dataNascimento: new Date("1994-04-09"), celular: '(28) 91098-7657', cep: '19045430', numero: '888', uid: '18' },
+  { nome: 'Sergio Roberto Costa', cpf: "889.900.112-23", dataNascimento: new Date("1981-11-02"), celular: '(31) 90987-6548', cep: '19020050', numero: '999', uid: '19' },
+]
+
 export const equipeFake = [
   { nome: 'Ana Carolina Pereira', cpf: "123.456.789-01", dataNascimento: new Date("1990-01-15"), celular: '(11) 98765-4321', cep: '19013000', numero: '101', uid: '2' },
   { nome: 'Bruno Costa Lima', cpf: "234.567.890-12", dataNascimento: new Date("1985-11-22"), celular: '(12) 97654-3210', cep: '19045430', numero: '202', uid: '3' },

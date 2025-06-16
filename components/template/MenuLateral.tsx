@@ -1,5 +1,5 @@
 import useAuth from '@/src/data/hook/useAuth'
-import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeAcampa, IconeEquipeTrabalho, IconeHome, IconePreInscricao, IconeSair, IconeSeparacaoEquipe, IconeSepararCampistas, IconeSino } from '../icons'
+import { IconeAbrirFechar, IconeAcampa, IconeAjustes, IconeDashboard, IconeEquipeAcampa, IconeEquipeTrabalho, IconeEscrever, IconeHome, IconePreInscricao, IconeSair, IconeSeparacaoEquipe, IconeSepararCampistas, IconeSepararLideres, IconeSino } from '../icons'
 import Logo from './Logo'
 import MenuItem from './MenuItem'
 import {
@@ -35,6 +35,7 @@ export default function MenuLateral(){
                             <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url='/separar-equipe' texto='Separar Equipe' icone={IconeSeparacaoEquipe} />
                             <MenuItem url='/separar-campistas' texto='Separar campistas' icone={IconeSepararCampistas} />
+                            <MenuItem url='/postsapp' texto='Posts do APP' icone={IconeEscrever} />
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>
@@ -57,7 +58,10 @@ export default function MenuLateral(){
                             <MenuItem url='/pre-inscricoes' texto='Inscrições' icone={IconePreInscricao} />
                             <MenuItem url='/equipe/equipe-acampa' texto='Equipe / Acampa' icone={IconeEquipeAcampa} />
                             <MenuItem url='/separar-equipe' texto='Separar Equipe' icone={IconeSeparacaoEquipe} />
+                            <MenuItem url='/separar-lideres' texto='Separar Lideres' icone={IconeSepararLideres} />
                             <MenuItem url='/separar-campistas' texto='Separar campistas' icone={IconeSepararCampistas} />
+                            <MenuItem url='/postsapp' texto='Posts do APP' icone={IconeEscrever} />
+                            
                             <MenuItem url="/ajustes" texto='Ajustes' icone={IconeAjustes}/>
                             <MenuItem url="/notificacoes" texto='Notificações' icone={IconeSino}/>
                         </ul>
