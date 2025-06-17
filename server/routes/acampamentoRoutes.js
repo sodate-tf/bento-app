@@ -26,6 +26,13 @@ router.get('/', acampamentoController.getAcampamentos);
 router.get('/:id', acampamentoController.getAcampamentoById);
 
 /**
+ * @route GET /api/acampamentos/getlink/:id
+ * @description Obtém o slug do link do acampamento
+ * @access Public
+ */
+router.get('/getlink/:id', acampamentoController.getLinkAcampamento);
+
+/**
  * @route POST /api/acampamentos
  * @description Cria um novo acampamento.
  * @access Public (ou Private/Authenticated, dependendo da sua necessidade)

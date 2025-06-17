@@ -1,5 +1,4 @@
 // frontend/src/services/acampamentoService.ts
-
 // Define a interface para a estrutura dos dados do acampamento que a API espera/retorna.
 // Esta interface AGORA reflete diretamente a estrutura da sua tabela 'acampamento' no PostgreSQL.
 export interface AcampamentoApiData {
@@ -44,7 +43,8 @@ const acampamentoService = {
       throw error; // Re-lança o erro para ser tratado pelo componente chamador
     }
   },
-
+  
+ 
   /**
    * Cria um novo acampamento no backend.
    * @param acampamento Os dados do acampamento a ser criado.
@@ -65,11 +65,27 @@ const acampamentoService = {
       }
       const data: AcampamentoApiData = await response.json();
       return data;
-    } catch (error) {
-      console.error('Erro na requisição POST de acampamento:', error);
+    } catch (error: any) {
+      console.error('Erro na requisição POST de acampamento:', error.message);
       throw error;
     }
   },
+
+   getLink: async (uid: string) : Promise<AcampamentoApiData> => {
+     try {
+         const response = await fetch(`${API_BASE_URL}/getlink/${uid}`);
+         if (!response.ok) {
+            // Lança um erro se a resposta não for OK (status 2xx)
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Erro ao buscar acampamentos.');
+          }
+          const data: AcampamentoApiData = await response.json();
+          return data;
+     } catch (error) {
+        console.error('Erro na requisição GET de acampamentos:', error);
+      throw error; // Re-lança o erro para ser tratado pelo componente chamador
+     }
+   },
 
   /**
    * Atualiza um acampamento existente no backend.

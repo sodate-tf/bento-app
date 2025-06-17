@@ -77,3 +77,24 @@ export async function pesquisarEndereco(cep: string) {
         icon: icone
        })
   }
+
+  export async function copyToClipboard(text: string) {
+  // A API Clipboard (navigator.clipboard) só está disponível em contextos seguros (HTTPS)
+  // e geralmente requer interação do usuário (como um clique de botão) para ser ativada.
+  if (!navigator.clipboard || !window.isSecureContext) {
+    console.error('Erro: A API Clipboard não está disponível ou o ambiente não é seguro (requer HTTPS).');
+    throw new Error('Cópia para área de transferência não suportada neste ambiente.');
+  }
+
+  try {
+    // Tenta copiar o texto para a área de transferência
+    await navigator.clipboard.writeText(text);
+    console.log('Texto copiado com sucesso para a área de transferência!');
+  } catch (err: any) {
+    // Captura erros que podem ocorrer durante a cópia, por exemplo:
+    // - Permissão negada pelo usuário.
+    // - O navegador bloqueou a cópia por algum motivo.
+    console.error('Falha ao copiar o texto para a área de transferência:', err);
+    throw new Error(`Erro ao copiar: ${err.message}`);
+  }
+}

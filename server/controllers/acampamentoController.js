@@ -3,12 +3,12 @@ const pool = require('../config/db'); // Importa o pool de conexão do banco de 
 
 // Função para criar um novo acampamento (POST /api/acampamentos)
 const createAcampamento = async (req, res) => {
-    const { nome, localizacao, data_inicio, data_fim, capacidade, preco_por_pessoa, descricao } = req.body;
+    const {  is_ativo, nome_acampa, slug, data_inicio, data_final, local, taxa_equipe, taxa_externa, taxa_campista, chave_pix, url_link_pagamento, musica_tema, leitura_tema, cronograma, arte_camiseta, cardapio } = req.body;
     try {
         const result = await pool.query(
-            `INSERT INTO acampamento (nome, localizacao, data_inicio, data_fim, capacidade, preco_por_pessoa, descricao)
-             VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [nome, localizacao, data_inicio, data_fim, capacidade, preco_por_pessoa, descricao]
+            `INSERT INTO acampamento (nome_acampa, is_ativo, slug, data_inicio, data_final, local, taxa_equipe, taxa_externa, taxa_campista, chave_pix, url_link_pagamento, musica_tema, leitura_tema, cronograma, arte_camiseta, cardapio)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
+            [is_ativo, nome_acampa, slug, data_inicio, data_final, local, taxa_equipe, taxa_externa, taxa_campista, chave_pix, url_link_pagamento, musica_tema, leitura_tema, cronograma, arte_camiseta, cardapio]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
@@ -65,6 +65,23 @@ const updateAcampamento = async (req, res) => {
     }
 };
 
+//Função para retornar o link de inscrição do acampamento (GET LINK /api/acampamentos/getlink/:id)
+const getLinkAcampamento = async (req, res) => {
+    const {id} = req.params;
+    try{
+        const result = await pool.query('SELECT slug FROM acampamento WHERE uid = $1', [id])
+        if (result.rows.length === 0){
+            return res.status(204).json({error: 'Link do acampamento não encontrado', details: err.message})
+        }
+        res.status(200).json(result.rows[0])
+    }
+    catch (err) {
+        console.error('Erro ao obter acampamento por ID:', err.message);
+        res.status(500).json({ error: 'Erro ao obter acampamento', details: err.message });
+    }
+}
+
+
 // Função para deletar um acampamento (DELETE /api/acampamentos/:id)
 const deleteAcampamento = async (req, res) => {
     const { id } = req.params;
@@ -86,4 +103,5 @@ module.exports = {
     getAcampamentoById,
     updateAcampamento,
     deleteAcampamento,
+    getLinkAcampamento
 };

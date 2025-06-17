@@ -123,6 +123,8 @@ export default class Acampamento {
         dataInicio: Date | string;
         dataFinal: Date | string;
         local?: string;
+        isPendente?: boolean;
+        localizacao?: string;
         musicaTema?: string;
         leituraTema?: string;
         cronograma?: string;

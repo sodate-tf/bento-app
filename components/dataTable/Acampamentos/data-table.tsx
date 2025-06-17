@@ -1,18 +1,16 @@
-"use client"
- 
+// frontend/src/components/dataTable/Acampamentos/data-table.tsx
+"use client";
+
 import {
   ColumnDef,
-  SortingState,
-  VisibilityState,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table"
- 
+  // Importe aqui o tipo TableMeta e RowData
+  TableMeta,
+  RowData
+} from "@tanstack/react-table";
+
 import {
   Table,
   TableBody,
@@ -20,155 +18,94 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
- 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+} from "@/components/ui/table"; // Se você usa os componentes de tabela do Shadcn UI
+
+// Extensão do tipo TableMeta, garantindo que o TypeScript conheça suas props customizadas.
+// Este bloco deve estar em um arquivo .d.ts como `src/types/tanstack-table.d.ts`
+// mas estou incluindo-o aqui temporariamente para referência clara do problema.
+// REMOVA ESTE BLOCO APÓS ADICIONAR O .d.ts
+/*
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface TableMeta<TData extends RowData> {
+    onCopyLink?: (uid: string) => void;
+    onEdit?: (acampamento: TData) => void; // Use TData para ser genérico aqui
+    onDelete?: (uid: string) => void;
+    onShowAlert?: (message: string, bgColor: string, Icon: React.ElementType) => void;
+    IconeCheck?: React.ElementType;
+    IconeExclamacao?: React.ElementType;
+  }
 }
-export function DataTable<TData, TValue>({
+*/
+
+
+// Definição da interface de props para o seu componente DataTable
+interface DataTableProps<TData extends RowData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  // *** ADICIONE AQUI A PROPRIEDADE 'meta' ***
+  // Ela deve ser do tipo TableMeta, que agora o TypeScript reconhecerá
+  // se você tiver o arquivo `tanstack-table.d.ts` configurado.
+  meta?: TableMeta<TData>; // O 'meta' é opcional
+}
+
+export function DataTable<TData extends RowData, TValue>({
   columns,
   data,
+  meta, // *** RECEBA A PROPRIEDADE 'meta' AQUI ***
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
-  
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    state:{
-       sorting,
-       columnFilters,
-       columnVisibility
-    }
-  })
-  return(
-    <div className="flex flex-col"> 
-        <div className="flex items-center py-4">
-            <Input
-                placeholder="Filtrar Acampamento..."
-                value={(table.getColumn("nome")?.getFilterValue() as string) ?? ""} 
-                onChange={(event) => 
-                    table.getColumn("nome")?.setFilterValue(event.target.value)
-                }
-                className="max-w-sm bg-white"
-                />
+    // *** PASSE A PROPRIEDADE 'meta' PARA useReactTable AQUI ***
+    meta, // Isso é o que permite que as colunas acessem as funções
+  });
 
-                <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto flex items-center justify-end">
-                    Exibir Colunas
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter(
-                    (column) => column.getCanHide()
-                  )
-                  .map((column) => {
-                     return(
-                        <DropdownMenuCheckboxItem 
-                           key={column.id}
-                           className="capitalize"
-                           checked={column.getIsVisible()}
-                           onCheckedChange={(value) => 
-                            column.toggleVisibility(!!value)
-                           }
-                        >
-                            {column.id}        
-                        </DropdownMenuCheckboxItem>
-                     )
-                  })
-                }
-            </DropdownMenuContent>
-        </DropdownMenu>
-        </div>
-        
-        <div className="rounded-md border">
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id }>
-                            {headerGroup.headers.map((header) =>{
-                                return(
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder 
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                    </TableHead>
-                                )
-                            })}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-                <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row, i) => (
-                            <TableRow
-                            key={row.id}
-                            className={(i % 2 === 0) ? "bg-gray-300" : "bg-indigo-100"}
-                            data-state={row.getIsSelected() && "selelected"}
-                            >
-                                {row.getVisibleCells().map((cell) =>(
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
-                                Não foi encontrado resultados
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              Anterior
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-               Próximo
-            </Button>
-        </div>
+  return (
+    <div className="rounded-md border overflow-x-auto">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                Nenhum resultado.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
-  )
+  );
 }
-
