@@ -18,14 +18,9 @@ export default function Acampamentos() {
     const [formVisivel, setFormVisivel] = useState<boolean>(false);
     const [acampamentoSelecionado, setAcampamentoSelecionado] = useState<AcampamentoClass | null>(null);
     const [modoForm, setModoForm] = useState<'cadastro' | 'edicao'>('cadastro');
-    const [messageState, setMessageState] = useState(null);
     const dataTableRef = useRef<{ refreshData: () => Promise<void> }>(null); // Ref para chamar o método de refresh da DataTable
 
 
-    // Função para fechar a notificação
-    const closeNotification = useCallback(() => {
-        setMessageState(null);
-    }, []);
 
     // --- Funções de Ação ---
 

@@ -1,6 +1,9 @@
 // frontend/src/services/acampamentoService.ts
-// Define a interface para a estrutura dos dados do acampamento que a API espera/retorna.
-// Esta interface AGORA reflete diretamente a estrutura da sua tabela 'acampamento' no PostgreSQL.
+import axios from 'axios';
+
+
+// Define a interface para a estrutura dos dados de Pessoa que a API espera/retorna.
+// Esta interface AGORA reflete diretamente a estrutura da sua tabela 'pessoa' no PostgreSQL.
 export interface AcampamentoApiData {
   uid?: number; // Corresponde ao 'uid' SERIAL PRIMARY KEY. Opcional para criação.
   is_ativo: boolean; // Corresponde a 'is_ativo' BOOLEAN
@@ -52,25 +55,24 @@ const acampamentoService = {
    */
   create: async (acampamento: Omit<AcampamentoApiData, 'uid'>): Promise<AcampamentoApiData> => {
     try {
-      const response = await fetch(API_BASE_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(acampamento),
+      const response = await axios.post(`${API_BASE_URL}`, acampamento, {
+            headers: {
+                'Content-Type': 'multipart/form-data' // O Axios até seta isso sozinho na maioria dos casos, mas é bom garantir.
+            }
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Erro ao criar acampamento.');
-      }
-      const data: AcampamentoApiData = await response.json();
-      return data;
+        console.log('Acampamento criado:', response);
+        return response.data;
     } catch (error: any) {
-      console.error('Erro na requisição POST de acampamento:', error.message);
-      throw error;
+       console.error('Erro ao criar acampamento:', error.response?.data || error.message);
+        throw error;
     }
   },
 
+   /**
+   * Recupera o link de inscrição de campistas do acampamento.
+   * @param uid O UID do acampamento a ser atualizado.
+   * @returns Promise<AcampamentoApiData> O link de inscrição.
+   */
    getLink: async (uid: string) : Promise<AcampamentoApiData> => {
      try {
          const response = await fetch(`${API_BASE_URL}/getlink/${uid}`);
@@ -86,6 +88,26 @@ const acampamentoService = {
       throw error; // Re-lança o erro para ser tratado pelo componente chamador
      }
    },
+     
+    /**
+   * Recupera os acampamentos ativos.
+   * @returns Retorna o uid e nome_acampa de todos os acampamentos ativos.
+   */ 
+   getAcampasAtivos: async () : Promise<AcampamentoApiData> =>{
+      try {
+         const response = await fetch(`${API_BASE_URL}/acoes/getacampasativos`);
+         if (!response.ok){
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Erro ao buscar acampamentos ativos.')
+         }
+         const data: AcampamentoApiData = await response.json();
+         return data;
+      } catch (error) {
+          console.error('Erro na requisição GET de Acampamentos:', error)
+          throw error;
+      }
+   },
+
 
   /**
    * Atualiza um acampamento existente no backend.
@@ -95,19 +117,13 @@ const acampamentoService = {
    */
   update: async (uid: number, acampamento: AcampamentoApiData): Promise<AcampamentoApiData> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/${uid}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(acampamento),
+      const response = await axios.put(`${API_BASE_URL}/${uid}`, acampamento, {
+            headers: {
+                'Content-Type': 'multipart/form-data' // O Axios até seta isso sozinho na maioria dos casos, mas é bom garantir.
+            }
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Erro ao atualizar acampamento.');
-      }
-      const data: AcampamentoApiData = await response.json();
-      return data;
+        console.log('Acampamento alterado:', response);
+        return response.data;
     } catch (error) {
       console.error('Erro na requisição PUT de acampamento:', error);
       throw error;

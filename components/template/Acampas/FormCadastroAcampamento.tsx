@@ -67,7 +67,7 @@ export default function FormCadastroAcampa({ acampamento, onSave, onCancel }: Fo
             setSlug(acampamento.slug || '');
             setDataInicio(acampamento.dataInicio ? acampamento.dataInicio.toISOString().split('T')[0] : '');
             setDataFinal(acampamento.dataFinal ? acampamento.dataFinal.toISOString().split('T')[0] : '');
-            setLocal(acampamento.localizacao || '');
+            setLocal(acampamento.local || '');
            // --- CORREÇÃO AQUI: PARSE PARA FLOAT ANTES DE TOFIXED ---
             // Garante que o valor é um número (ou NaN) antes de usar toFixed
             const equipeValue = parseFloat(String(acampamento.taxa_equipe));
@@ -224,6 +224,7 @@ export default function FormCadastroAcampa({ acampamento, onSave, onCancel }: Fo
         
         // Determina se é uma atualização ou novo cadastro
         const isUpdate = !!acampamento?.uid;
+        console.log(formData)
         onSave(formData, isUpdate, acampamento?.uid);
     };
 

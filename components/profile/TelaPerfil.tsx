@@ -11,7 +11,9 @@ import ParoquiaSacramentos from "./sessao/ParoquiaSacramentos";
 import InformacoesEmergencia from "./sessao/InformacoesEmergencia";
 import InformacoesContatoEmergencia from "./sessao/InformacoesContatoEmergencia";
 import { Button } from "../ui/button";
-
+import pessoaService, { pessoaApiData } from "@/src/service/pessoaService";
+import { IconeCheck } from "../icons";
+import { exibirMsgAlerta } from "@/lib/utils";
 
 const calculateCompletionPercentage = (profile: UserProfile): number => {
   let filledFields = 0;
@@ -128,9 +130,10 @@ export default function TelaPerfil(){
   };
 
   // Handler para salvar o perfil (exemplo)
-  const handleSaveProfile = () => {
-    console.log("Perfil a ser salvo:", userProfile);
-    console.log("Porcentagem de Conclusão:", completionPercentage());
+  const handleSaveProfile = async () => 
+    {
+    await pessoaService.create(userProfile);
+    exibirMsgAlerta("Novo Perfil Cadastrado com Sucesso!", 'cyan-950', IconeCheck);
     // Aqui você enviaria 'userProfile' para o seu backend ou Firestore
     toast.success("Perfil salvo com sucesso!", {
       description: `Sua conclusão está em ${Math.round(completionPercentage())}%`,
