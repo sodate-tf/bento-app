@@ -1,11 +1,14 @@
+import InputWithIcon from "@/components/InputWithIcon";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PessoaApiData } from "@/src/service/pessoaService";
 import { UserProfile } from "@/src/types/userProfile";
+import { Church } from "lucide-react";
 
 interface ParoquiaSacramentosProps {
-  profile: UserProfile;
-  onProfileChange: (field: keyof UserProfile, value: any) => void;
+  profile: PessoaApiData;
+  onProfileChange: (field: keyof PessoaApiData, value: any) => void;
 }
 
 export default function ParoquiaSacramentos(props:ParoquiaSacramentosProps){
@@ -17,26 +20,27 @@ export default function ParoquiaSacramentos(props:ParoquiaSacramentosProps){
         Paróquia e Sacramentos
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div className="md:col-span-2">
-          <Label htmlFor="paroquiaParticipa">Paróquia que participa (Opcional)</Label>
-          <Input
-            id="paroquiaParticipa"
-            value={profile.paroquiaParticipa}
-            onChange={(e) => onProfileChange('paroquiaParticipa', e.target.value)}
+         <InputWithIcon
+            id="paroquia"
+            labelText="Paróquia que participa"
+            icon={Church}
+            value={profile.paroquia}
+            onChange={(e) => props.onProfileChange('paroquia', e.target.value)}
+            error=""
             placeholder="Nome da sua paróquia"
-          />
-        </div>
+        />
+      
         
         <div className="flex flex-col gap-2 md:col-span-2">
           <Label className="text-gray-800 text-lg font-medium mb-2">Sacramentos que já possui:</Label>
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="batismo"
-                checked={profile.batismo}
-                onCheckedChange={(checked) => onProfileChange('batismo', checked)}
+                id="batizado"
+                checked={profile.batizado}
+                onCheckedChange={(checked) => onProfileChange('batizado', checked)}
               />
-              <Label htmlFor="batismo">Batismo</Label>
+              <Label htmlFor="batizado">batizado</Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox

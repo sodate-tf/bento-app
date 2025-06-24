@@ -224,7 +224,6 @@ export default function FormCadastroAcampa({ acampamento, onSave, onCancel }: Fo
         
         // Determina se é uma atualização ou novo cadastro
         const isUpdate = !!acampamento?.uid;
-        console.log(formData)
         onSave(formData, isUpdate, acampamento?.uid);
     };
 

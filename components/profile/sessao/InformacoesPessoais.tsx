@@ -1,16 +1,39 @@
+import DateInputWithIcon from "@/components/DateWhitIcon";
+import InputWithIcon from "@/components/InputWithIcon";
+import SelectWithIcon from "@/components/SelectWhitIcons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { formatDateForInput } from "@/lib/utils";
+import { PessoaApiData } from "@/src/service/pessoaService";
 import { UserProfile } from "@/src/types/userProfile";
+import { Cake, Gauge, Hammer, HeartHandshake, Ruler, Shirt } from "lucide-react";
 
 interface InformacoesPessoaisProps {
-  profile: UserProfile;
-  onProfileChange: (field: keyof UserProfile, value: any) => void;
+  profile: PessoaApiData;
+  onProfileChange: (field: keyof PessoaApiData, value: any) => void;
 }
 
-const T_SHIRT_SIZES = ['PP', 'P', 'M', 'G', 'GG', 'XGG', 'EG', 'XXGG'];
-const CIVIL_STATUS_OPTIONS = ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'Viúvo(a)', 'Separado(a)'];
+
+const T_SHIRT_SIZES = [
+    { value: 'PP', label: 'PP' },
+    { value: 'P', label: 'P' },
+    { value: 'M', label: 'M' },
+    { value: 'G', label: 'G' },
+    { value: 'GG', label: 'GG' },
+    { value: 'XGG', label: 'XGG' },
+    { value: 'EG', label: 'EG' },
+    { value: 'XXGG', label: 'XXGG' },
+];
+
+const CIVIL_STATUS_OPTIONS = [
+  { label: 'Solteiro(a)', value: 'solteiro' },
+  { label: 'Casado(a)', value: 'casado' },
+  { label: 'Divorciado(a)', value: 'divorciado' },
+  { label: 'União Estável', value: 'uniao_estavel' },
+  { label: 'Viúvo(a)', value: 'viuvo' }
+]
 
 export default function InformacoesPessoais(props: InformacoesPessoaisProps){
     const profile = props.profile
@@ -21,77 +44,78 @@ export default function InformacoesPessoais(props: InformacoesPessoaisProps){
         Informações Pessoais
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        <div>
-          <Label htmlFor="peso">Peso (kg)</Label>
-          <Input
+        <InputWithIcon
             id="peso"
-            value={profile.peso ?? ''} // Use ?? '' para converter null para string vazia para o input
-            onChange={(e) => onProfileChange('peso', Number(e.target.value) || null)}
-            placeholder="Ex: 70.5"
+            labelText="Peso (kg)"
+            icon={Gauge  }
+            value={profile.peso}
+            onChange={(e) => props.onProfileChange('peso', e.target.value)}
+            error=""
+            placeholder="00,0"
             type="number"
-            step="0.1"
-          />
-        </div>
-        <div>
-          <Label htmlFor="altura">Altura (cm)</Label>
-          <Input
+        />
+
+        <InputWithIcon
             id="altura"
-            value={profile.altura ?? ''}
-            onChange={(e) => onProfileChange('altura', Number(e.target.value) || null)}
-            placeholder="Ex: 175"
+            labelText="Altura (cm)"
+            icon={Ruler  }
+            value={profile.altura}
+            onChange={(e) => props.onProfileChange('altura', e.target.value)}
+            error=""
+            placeholder="171"
             type="number"
-          />
-        </div>
-        <div>
-          <Label htmlFor="tamanhoCamiseta">Tamanho da Camiseta</Label>
-          <Select
-            value={profile.tamanhoCamiseta}
-            onValueChange={(value: any) => onProfileChange('tamanhoCamiseta', value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              {T_SHIRT_SIZES.map(size => (
-                <SelectItem key={size} value={size}>{size}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <Label htmlFor="profissao">Profissão</Label>
-          <Input
+        />
+    
+        <SelectWithIcon
+                id="camiseta"
+                labelText="Camiseta"
+                options={T_SHIRT_SIZES}
+                value={profile.camiseta}
+                // === PONTO CHAVE DE CORREÇÃO ===
+                // Mude 'onChange' para 'onValueChange'.
+                // O 'value' que o SelectWithIcon passará será a string diretamente,
+                // não um evento completo.
+                onValueChange={(newValue) => onProfileChange('camiseta', newValue)}
+                error={""} // Se houver lógica de erro, passe a mensagem aqui
+                className="col-span-1"
+                icon={Shirt} // Ícone de exemplo
+            />
+
+      <InputWithIcon
             id="profissao"
+            labelText="Profissão"
+            icon={Hammer  }
             value={profile.profissao}
-            onChange={(e) => onProfileChange('profissao', e.target.value)}
-            placeholder="Sua profissão"
-          />
-        </div>
-        <div>
-          <Label htmlFor="dtNascimento">Data de Nascimento</Label>
-          <Input
-            id="dtNascimento"
-            value={profile.dtNascimento ?? ''}
-            onChange={(e) => onProfileChange('dtNascimento', e.target.value)}
-            type="date" // Input type date para seletor de data
-          />
-        </div>
-        <div>
-          <Label htmlFor="estadoCivil">Estado Civil</Label>
-          <Select
-            value={profile.estadoCivil}
-            onValueChange={(value: any) => onProfileChange('estadoCivil', value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              {CIVIL_STATUS_OPTIONS.map(status => (
-                <SelectItem key={status} value={status}>{status}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            onChange={(e) => props.onProfileChange('profissao', e.target.value)}
+            error=""
+            placeholder=""
+        />
+        <DateInputWithIcon
+            id="data_nascimento"
+            labelText="Data de Nascimento"
+            value={formatDateForInput(profile.data_nascimento.toString())}
+            onChange={(e) => props.onProfileChange('data_nascimento', e)}
+            className="col-span-1" // Ajuste o layout conforme necessário
+            min={"17"}
+            max={"99"}
+            // Você pode passar um ícone diferente se quiser:
+            icon={Cake}
+        />
+        
+         <SelectWithIcon
+                id="estado_civil"
+                labelText="Estado Civil"
+                options={CIVIL_STATUS_OPTIONS}
+                value={profile.estado_civil}
+                // === PONTO CHAVE DE CORREÇÃO ===
+                // Mude 'onChange' para 'onValueChange'.
+                // O 'value' que o SelectWithIcon passará será a string diretamente,
+                // não um evento completo.
+                onValueChange={(newValue) => onProfileChange('estado_civil', newValue)}
+                error={""} // Se houver lógica de erro, passe a mensagem aqui
+                className="col-span-1"
+                icon={HeartHandshake} // Ícone de exemplo
+            />
       </div>
     </div> 
     )

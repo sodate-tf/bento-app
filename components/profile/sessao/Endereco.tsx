@@ -1,14 +1,19 @@
 import Cep from "@/components/Cep";
+import CEPWithIcon from "@/components/CEPWhithIcons";
+import InputWithIcon from "@/components/InputWithIcon";
+import SelectWithIcon from "@/components/SelectWhitIcons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { pesquisarEndereco } from "@/lib/utils";
+import { PessoaApiData } from "@/src/service/pessoaService";
 import { UserProfile } from "@/src/types/userProfile";
-import { useState } from "react";
+import { Building, Building2, House, Landmark, MapPinHouse, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface EnderecoProps {
-  profile: UserProfile;
-  onProfileChange: (field: keyof UserProfile, value: any) => void;
+  profile: PessoaApiData;
+  onProfileChange: (field: keyof PessoaApiData, value: any) => void;
 }
 
 const BRAZILIAN_STATES = [
@@ -16,25 +21,22 @@ const BRAZILIAN_STATES = [
   'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC',
   'SP', 'SE', 'TO'
 ];
+const formattedBrazilianStates = BRAZILIAN_STATES.map(state => ({
+    label: state,
+    value: state
+}));
+
 
 export default function Endereco(props: EnderecoProps){
-    const profile = props.profile
-    const onProfileChange = props.onProfileChange
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState({
-        logradouro: "",
-        bairro: "",
-        localidade: "",
-        uf: "",
-        numero: 0,
-        complemento: ""
-    });
     function atualizaEndereco(data: any){
-        profile.rua = data.logradouro
-        profile.bairro = data.bairro
-        profile.cidade = data.localidade
-        profile.estado = data.uf
-        setEndereco(data)
+         // Chame onProfileChange para CADA campo que você quer atualizar
+        // Isso força o componente pai a atualizar seu estado e re-renderizar,
+        // passando um novo objeto 'profile' para Endereco.
+        props.onProfileChange('rua', data.rua || ''); // ViaCEP usa 'logradouro' para rua
+        props.onProfileChange('bairro', data.bairro || '');
+        props.onProfileChange('cidade', data.cidade || ''); // ViaCEP usa 'localidade' para cidade
+        props.onProfileChange('estado', data.estado || ''); // ViaCEP usa 'uf' para estado
+    
     }
     return(
         <div className="border border-gray-200 rounded-lg p-4 md:p-6 bg-white shadow-sm">
@@ -42,76 +44,82 @@ export default function Endereco(props: EnderecoProps){
         Endereço
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div>
-          <Label htmlFor="cep">CEP</Label>
-          <Cep setCep={setCep} pesquisarEndereco={async () =>{
-                        const dataCep = await pesquisarEndereco(cep)
-                        if(dataCep)
-                           atualizaEndereco(dataCep)
-                           
-                      }} cep={cep} />
-        </div>
-        <div className="md:col-span-2"> {/* Rua ocupa 2 colunas em telas maiores */}
-          <Label htmlFor="rua">Rua</Label>
-          <Input
+
+        <CEPWithIcon
+            id="cep"
+            labelText="CEP"
+            value={props.profile.cep}
+            onChange={(maskedValue) => props.onProfileChange('cep', maskedValue)}
+            onBlur={async (rawValue, isValid) => { // rawValue = CEP sem máscara
+                        if (isValid && rawValue) {
+                            console.log('CEP validado no blur:', rawValue);
+                            const dataCep = await pesquisarEndereco(rawValue); // Pesquisa com o CEP sem máscara
+                            if (dataCep) {
+                                atualizaEndereco(dataCep);
+                            }
+                        }
+                    }}
+            required
+            error={""}
+        />
+        <InputWithIcon
             id="rua"
-            value={profile.rua}
-            onChange={(e) => onProfileChange('rua', e.target.value)}
-            placeholder="Nome da Rua, Avenida, etc."
-          />
-        </div>
-        <div>
-          <Label htmlFor="numero">Número</Label>
-          <Input
+            labelText="Rua"
+            icon={MapPinHouse  }
+            value={props.profile.rua}
+            onChange={(e) => props.onProfileChange('rua', e.target.value)}
+            error=""
+            placeholder=""
+        />
+        <InputWithIcon
             id="numero"
-            value={profile.numero}
-            onChange={(e) => onProfileChange('numero', e.target.value)}
-            placeholder="Ex: 123"
-          />
-        </div>
-        <div>
-          <Label htmlFor="complemento">Complemento (Opcional)</Label>
-          <Input
+            labelText="Número"
+            icon={House  }
+            value={props.profile.numero}
+            onChange={(e) => props.onProfileChange('numero', e.target.value)}
+            error=""
+            placeholder=""
+        />
+       <InputWithIcon
             id="complemento"
-            value={profile.complemento}
-            onChange={(e) => onProfileChange('complemento', e.target.value)}
-            placeholder="Apto, Bloco, Casa"
-          />
-        </div>
-        <div>
-          <Label htmlFor="bairro">Bairro</Label>
-          <Input
+            labelText="Complemento"
+            icon={Plus  }
+            value={props.profile.complemento}
+            onChange={(e) => props.onProfileChange('complemento', e.target.value)}
+            error=""
+            placeholder=""
+        />
+        <InputWithIcon
             id="bairro"
-            value={profile.bairro}
-            onChange={(e) => onProfileChange('bairro', e.target.value)}
-            placeholder="Seu bairro"
-          />
-        </div>
-        <div>
-          <Label htmlFor="cidade">Cidade</Label>
-          <Input
+            labelText="Bairro"
+            icon={Plus  }
+            value={props.profile.bairro}
+            onChange={(e) => props.onProfileChange('bairro', e.target.value)}
+            error=""
+            placeholder=""
+        />
+        <InputWithIcon
             id="cidade"
-            value={profile.cidade}
-            onChange={(e) => onProfileChange('cidade', e.target.value)}
-            placeholder="Sua cidade"
-          />
-        </div>
-        <div>
-          <Label htmlFor="estado">Estado</Label>
-          <Select
-            value={profile.estado}
-            onValueChange={(value: any) => onProfileChange('estado', value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              {BRAZILIAN_STATES.map(state => (
-                <SelectItem key={state} value={state}>{state}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            labelText="Cidade"
+            icon={Building2  }
+            value={props.profile.cidade}
+            onChange={(e) => props.onProfileChange('cidade', e.target.value)}
+            error=""
+            placeholder=""
+        />
+        <SelectWithIcon
+          id="estado"
+          labelText="Estado"
+          options={formattedBrazilianStates}
+          value={props.profile.estado}
+          onValueChange={(e) => props.onProfileChange('estado', e)}
+          error={""} // Combina erro externo com interno
+          className="col-span-1" // Ajuste o layout conforme necessário
+          // Você pode passar um ícone diferente se quiser:
+           icon={Landmark}
+      />
+      
+  
       </div>
     </div>
     )

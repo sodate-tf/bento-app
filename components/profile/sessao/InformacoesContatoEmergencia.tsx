@@ -1,10 +1,14 @@
+import InputWithIcon from "@/components/InputWithIcon";
+import TelefoneWithIcon from "@/components/TelefoneWhithIcons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PessoaApiData } from "@/src/service/pessoaService";
 import { UserProfile } from "@/src/types/userProfile";
+import { ShieldAlert } from "lucide-react";
 
 interface InformacoesContatoEmergenciaProps {
-  profile: UserProfile;
-  onProfileChange: (field: keyof UserProfile, value: any) => void;
+  profile: PessoaApiData;
+  onProfileChange: (field: keyof PessoaApiData, value: any) => void;
 }
 
 export default function InformacoesContatoEmergencia(props: InformacoesContatoEmergenciaProps){
@@ -16,25 +20,24 @@ export default function InformacoesContatoEmergencia(props: InformacoesContatoEm
         Contato de Emergência
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div>
-          <Label htmlFor="contatoEmergenciaNome">Nome do Contato de Emergência</Label>
-          <Input
-            id="contatoEmergenciaNome"
-            value={profile.contatoEmergenciaNome}
-            onChange={(e) => onProfileChange('contatoEmergenciaNome', e.target.value)}
-            placeholder="Nome completo do contato"
-          />
-        </div>
-        <div>
-          <Label htmlFor="contatoEmergenciaTelefone">Telefone do Contato de Emergência</Label>
-          <Input
-            id="contatoEmergenciaTelefone"
-            value={profile.contatoEmergenciaTelefone}
-            onChange={(e) => onProfileChange('contatoEmergenciaTelefone', e.target.value)}
-            placeholder="(XX) XXXXX-XXXX"
-            type="tel"
-          />
-        </div>
+        <InputWithIcon
+            id="contato_emergencia"
+            labelText="Nome do Contato de Emergência"
+            icon={ShieldAlert  }
+            value={profile.contato_emergencia}
+            onChange={(e) => props.onProfileChange('contato_emergencia', e.target.value)}
+            error=""
+            placeholder="Seu contato de emergência"
+        />
+
+           <TelefoneWithIcon
+            id="telefone_emergencia"
+            labelText="Telefone do Contato de Emergência"
+            value={profile.telefone_emergencia}
+            onChange={(e) => props.onProfileChange('telefone_emergencia', e)}
+            error={""} // Combina erro externo com interno
+            className="col-span-1" // Ou ajuste o layout como precisar
+        />
       </div>
     </div>
     )

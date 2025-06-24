@@ -18,9 +18,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 export type Equipe = {
     uid?: string
-    nome: string
+    nomeCmpleto: string
     cpf?: string
-    celular: string
+    telefone: string
     dataNascimento: Date
     mostraCheck: boolean
 }
@@ -57,7 +57,7 @@ export const columns: ColumnDef<Equipe>[] = [
 
 },
 {
-    accessorKey: "nome",
+    accessorKey: "nomeCompleto",
     header: ({column}) =>{
         return (
             <Button
@@ -74,7 +74,7 @@ export const columns: ColumnDef<Equipe>[] = [
     header: "CELULAR",
     cell: ({ row }) => {
         // Formata a data para exibição, pois 'dataFinal' é um objeto Date
-        return row.original.celular;
+        return row.original.telefone;
     },
 },
 {
@@ -89,7 +89,6 @@ export const columns: ColumnDef<Equipe>[] = [
     accessorKey: "cpf",
     header:"CPF",
         cell: ({ row }) => {
-        // Formata a data para exibição, pois 'dataInicio' é um objeto Date
         return row.original.cpf;
     },
 },

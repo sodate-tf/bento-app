@@ -2,17 +2,17 @@ import EquipeClass from "@/components/context/equipe";
 import { Equipe, columns } from "@/components/dataTable/Equipe/columns"
 import { DataTable } from "@/components/dataTable/Equipe/data-table"
 import { equipeFake } from "@/src/data/tabelasFake";
+import pessoaService, { PessoaApiData } from "@/src/service/pessoaService";
 
+const membrosEquipeTrabalho = await pessoaService.getAll();
 
-const dadosBrutosParaTeste = equipeFake;
-
-function getEquipeInstances(): Equipe[]{
-    return dadosBrutosParaTeste.map(equipeData  =>{
-        return EquipeClass.criarDeDados({
+function getEquipeInstances(): PessoaApiData[]{
+    return membrosEquipeTrabalho.map(equipeData  =>{
+        return EquipeClass.fromApiData({
             uid: equipeData.uid,
-            nome: equipeData.nome,
-            celular: equipeData.celular,
-            dataNascimento: equipeData.dataNascimento,
+            nome_completo: equipeData.nome_completo,
+            telefone: equipeData.telefone,
+            data_nascimento: equipeData.data_nascimento,
             cpf: equipeData.cpf,
             cep: equipeData.cep,
             numero: equipeData.numero 

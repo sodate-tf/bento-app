@@ -1,3 +1,4 @@
+import TelaPerfil from "@/components/profile/TelaPerfil";
 import DataTableEquipe from "@/components/template/Equipe/DataTableEquipe";
 import FormCadastroEquipe from "@/components/template/Equipe/FormCadastroEquipe";
 import Layout from "@/components/template/Layout";
@@ -27,7 +28,7 @@ export default function Equipe() {
           
         </div>
         {(formVisivel) ? 
-            <FormCadastroEquipe clickCancelar={clickCancelar}/>
+              <TelaPerfil novo /> 
         :
             <DataTableEquipe retornaLinhasSelecionadas={() => tabelaSelecionada}/>
         }        

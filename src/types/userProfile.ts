@@ -1,5 +1,7 @@
 // src/types/userProfile.ts
 
+import { PessoaApiData } from "../service/pessoaService";
+
 // Definindo tipos para campos específicos, se necessário
 type TShirtSize = 'PP' | 'P' | 'M' | 'G' | 'GG' | 'XGG' | 'EG' | 'XXGG' | '';
 type CivilStatus = 'Solteiro(a)' | 'Casado(a)' | 'Divorciado(a)' | 'Viúvo(a)' | 'Separado(a)' | '';
@@ -54,19 +56,19 @@ export interface UserProfile {
 }
 
 // Valores padrão para um perfil vazio
-export const initialUserProfile: UserProfile = {
-  profileImageUrl: null,
-  nome: '',
+export const initialUserProfile: PessoaApiData = {
+  url_foto_perfil: "",
+  nome_completo: '',
   telefone: '',
   email: '',
   instagram: '',
 
-  peso: null,
-  altura: null,
-  tamanhoCamiseta: '',
+  peso: 0,
+  altura: 0,
+  camiseta: "G",
   profissao: '',
-  dtNascimento: null,
-  estadoCivil: '',
+  data_nascimento: new Date(),
+  estado_civil: '',
 
   cep: '',
   rua: '',
@@ -76,23 +78,26 @@ export const initialUserProfile: UserProfile = {
   cidade: '',
   estado: '',
 
-  paroquiaParticipa: '',
-  batismo: undefined,
-  eucaristia: undefined,
-  crisma: undefined,
-  matrimonio: undefined,
+  paroquia: '',
+  batizado: false,
+  eucaristia: false,
+  crisma: false,
+  matrimonio: false,
 
-  possuiAlergia: undefined,
-  alergiasDetalhes: null,
-  possuiDoenca: undefined,
-  doencasDetalhes: null,
-  fazTratamento: undefined,
-  tratamentosDetalhes: null,
-  usoMedicamentoControlado: undefined,
-  medicamentosDetalhes: null,
-  possuiPlanoSaude: undefined,
-  planoSaudeNome: null,
+  alergia: false,
+  qual_alergia: "",
+  doenca_cronica: false,
+  qual_doenca: "",
+  tratamento_medico: false,
+  qual_tratamento: "",
+  medicamento_controlado: false,
+  qual_medicamento: "",
+  plano_de_saude: false,
+  qual_plano: "",
 
-  contatoEmergenciaNome: '',
-  contatoEmergenciaTelefone: '',
+  contato_emergencia: '',
+  telefone_emergencia: '',
+  created_at: new Date(),
+  updated_at: new Date(),
+  cpf: ""
 };

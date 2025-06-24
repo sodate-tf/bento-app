@@ -35,11 +35,12 @@ export async function pesquisarEndereco(cep: string) {
           //toast.success(`Endereço encontrado: ${data.logradouro}`)
           // Exemplo: setRua(data.logradouro); setCidade(data.localidade); etc.
           return ({
-              logradouro: data.logradouro,
+              rua: data.logradouro,
+              cep: data.cep,
               numero: 0,
               bairro: data.bairro,
-              localidade: data.localidade,
-              uf: data.uf,
+              cidade: data.localidade,
+              estado: data.uf,
               complemento: data.complemento
             });
         }
@@ -98,3 +99,20 @@ export async function pesquisarEndereco(cep: string) {
     throw new Error(`Erro ao copiar: ${err.message}`);
   }
 }
+
+export const formatDateForInput = (isoDateString: string | undefined | null): string => {
+    if (!isoDateString) return '';
+    try {
+        const date = new Date(isoDateString);
+        // Verifica se a data é válida para evitar 'Invalid Date'
+        if (isNaN(date.getTime())) {
+            console.warn(`Data inválida fornecida para formatação: ${isoDateString}. Retornando string vazia.`);
+            return '';
+        }
+        // Retorna apenas a parte da data (YYYY-MM-DD)
+        return date.toISOString().split('T')[0];
+    } catch (e) {
+        console.error(`Erro ao formatar data "${isoDateString}":`, e);
+        return '';
+    }
+};

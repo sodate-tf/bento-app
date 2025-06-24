@@ -9,20 +9,40 @@ export interface PessoaApiData{
   instagram: string // varchar
   peso: number; //number
   altura: number; //number
-  camiseta: number // chave estrangerira tabela camiseta
+  camiseta: string // chave estrangerira tabela camiseta
   profissao: string; //varchar
   data_nascimento: Date; //date
   estado_civil: string
+
   paroquia: string;
   batizado: boolean;
   eucaristia: boolean;
   crisma: boolean;
   matrimonio: boolean;
+  
   contato_emergencia: string;
   telefone_emergencia: string;
   url_foto_perfil: string;
-  created_at: Date
-  updated_at: Date
+  created_at: Date;
+  updated_at: Date;
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  alergia: boolean;
+  qual_alergia: string;
+  doenca_cronica: boolean;
+  qual_doenca: string;
+  tratamento_medico: boolean;
+  qual_tratamento: string;
+  medicamento_controlado: boolean;
+  qual_medicamento: string;
+  plano_de_saude: boolean;
+  qual_plano: string;
+  cpf: string
 }
 
 const API_BASE_URL = 'http://localhost:3001/api/bentoapp/pessoas'; // A URL base da sua API
@@ -47,6 +67,22 @@ const pessoaService = {
         throw error; // Re-lança o erro para ser tratado pelo componente chamador
       }
     },
+    
+    getPessoaById: async (uid: number) : Promise<PessoaApiData> =>{
+        try {
+          const response = await fetch(`${API_BASE_URL}/${uid}`)
+          const data  = await response.json();
+          if (!response.ok){
+            //throw new Error(data .message || "Erro ao buscar pessoa por UID")
+            return null
+          }
+          return data;
+        } catch (error) {
+          console.error('Erro na requisição GET de pessoas:', error);
+          throw error; // Re-lança o erro para ser tratado pelo componente chamador
+        }
+      },
+    
     /**
    * Cria uma nova pessoa no backend.
    * @param pessoa Os dados da pessoa a ser criado.
